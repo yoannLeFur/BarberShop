@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title 'La boutique' %}
+
+{% block body %}
+    <div class="jumbotron text-center text-white bg-dark rounded-0">
+        <h1>La boutique du barbu</h1>
+    </div>
+    <div class="container mt-5">
+        <h1>Voici quelques produits</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('product.show', {id => product.id, slug => product.slug}) }}">{{ product.name }}</a>
+                            </h5>
+                            <p class="card-text">{{ product.formatedPrice }} €</p>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="text-primary" style="font-size: 1rem">
+                                {{ product.stock }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

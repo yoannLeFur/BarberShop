@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,12 +25,12 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
@@ -80,6 +81,12 @@ class Product
         return $this;
     }
 
+    public function slug(): string
+    {
+        return (new Slugify())->slugify($this->name);
+        
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -115,6 +122,11 @@ class Product
 
         return $this;
     }
+
+    public function getformatedPrice(): string {
+        return number_format($this->price, 2,',',' ');
+    }
+
 
     public function getCategory(): ?ProductCategory
     {

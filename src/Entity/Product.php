@@ -81,10 +81,9 @@ class Product
         return $this;
     }
 
-    public function slug(): string
+    public function getSlug(): string
     {
         return (new Slugify())->slugify($this->name);
-        
     }
 
     public function getDescription(): ?string

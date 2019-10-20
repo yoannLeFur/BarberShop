@@ -19,12 +19,12 @@ class ProductsOrder
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Orders", inversedBy="productsOrder", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="productsOrder", cascade={"persist", "remove"})
      */
     private $orders;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="productsOrders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="productsOrders")
      */
     private $product;
 

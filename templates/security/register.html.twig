@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title "S'inscrire" %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h2 class="title-h2 text-center">Inscription</h2>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-4">{{ form_row(form.first_name) }}</div>
+            <div class="col-4">{{ form_row(form.last_name) }}</div>
+            <div class="col-4">{{ form_row(form.username) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-12">{{ form_row(form.email) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-12">{{ form_row(form.password) }}</div>
+        </div>
+        {{ form_rest(form) }}
+        <button class="offset-5 col-2 btn btn-primary button">Enregistrer</button>
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

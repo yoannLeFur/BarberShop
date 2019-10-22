@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+{% block title 'Nouveau produit' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2>Nouveau produit</h2>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.name) }}</div>
+            <div class="col-md-4">{{ form_row(form.price) }}</div>
+            <div class="col-md-4">{{ form_row(form.stock) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Image</div>
+            <div class="col-md-4">Category</div>
+            <div class="col-md-4">Marque</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">{{ form_row(form.description) }}</div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary button">{{ button|default('Enregistrer') }}</button>
+        </div
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+

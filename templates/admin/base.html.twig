@@ -44,9 +44,9 @@
                     Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item button" href="#">Mes informations</a>
-                    <a class="dropdown-item button" href="#">Mes commandes</a>
-                    <a class="dropdown-item button" href="#">Modifier le mot de passe</a>
+                    <a class="dropdown-item" href="#">Mes informations</a>
+                    <a class="dropdown-item" href="#">Mes commandes</a>
+                    <a class="dropdown-item" href="#">Modifier le mot de passe</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -58,7 +58,19 @@
         </ul>
     {% endif %}
 </nav>
-{% block body %}{% endblock %}
+<div class="row m-0">
+    <div class="menu-admin col-2">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-settings" aria-selected="false">Accueil</a>
+            <a class="nav-link" href="{{ path('admin.product.index')}}">Les produits</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#" role="tab" aria-selected="false">Les commandes</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#" role="tab" aria-selected="false">Les utilisateurs</a>
+        </div>
+    </div>
+    <div class="container-admin col-10">
+        {% block body %}{% endblock %}
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -72,3 +84,5 @@
 {% block javascripts %}{% endblock %}
 </body>
 </html>
+
+

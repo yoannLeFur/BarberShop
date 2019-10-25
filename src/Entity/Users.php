@@ -161,6 +161,11 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getFormattedDate()
+    {
+        return date_format($this->creation_date, 'd/m/Y H:i:s');
+    }
+
     /**
      * Returns the roles granted to the user.
      *

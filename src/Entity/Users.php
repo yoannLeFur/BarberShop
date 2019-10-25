@@ -73,6 +73,7 @@ class Users implements UserInterface, \Serializable
     public function __construct()
     {
         $this->forgotPasswords = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->setCreationDate(new \DateTime());
     }
@@ -166,23 +167,16 @@ class Users implements UserInterface, \Serializable
         return date_format($this->creation_date, 'd/m/Y H:i:s');
     }
 
-    /**
-     * Returns the roles granted to the user.
-     *
-     *     public function getRoles()
-     *     {
-     *         return ['ROLE_USER'];
-     *     }
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return $this->roles;
+    }
+
+    public function setRoles(?Roles $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**

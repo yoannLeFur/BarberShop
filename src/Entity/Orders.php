@@ -75,6 +75,11 @@ class Orders
         return $this;
     }
 
+    public function getFormattedDate()
+    {
+        return date_format($this->date, 'd/m/Y H:i:s');
+    }
+
     public function getPaymentMethod(): ?PaymentMethod
     {
         return $this->payment_method;
@@ -97,6 +102,11 @@ class Orders
         $this->total_price = $total_price;
 
         return $this;
+    }
+
+    public function getFormattefTotalPrice()
+    {
+        return number_format($this->total_price, 2,',',' ');
     }
 
     public function getProductsOrder(): ?ProductsOrder

@@ -180,6 +180,10 @@ table {
     overflow: scroll;
 }
 
+table th {
+    text-align: center;
+}
+
 /* form */
 .button {
     align-self: center;

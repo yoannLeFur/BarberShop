@@ -1,6 +1,41 @@
 {% extends 'admin/base.html.twig' %}
+{% block title 'Les commandes' %}
 {% block body %}
     <div class="container mt-4">
         <h2>Les commandes</h2>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>type de payment</th>
+                <th>Prix total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.user.fullname }}</td>
+                    <td>{{ order.formattedDate }}</td>
+                    <td>{{ order.paymentMethod.name }}</td>
+                    <td>{{ order.formattefTotalPrice }}</td>
+                    <td>
+                        <a href="" class="btn btn-secondary button">Détails</a>
+                        <a href="" class="btn btn-secondary button">Facture</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

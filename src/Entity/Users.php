@@ -125,6 +125,11 @@ class Users implements UserInterface, \Serializable
         $this->username = $username;
     }
 
+    public function getFullname()
+    {
+        return $this->last_name.' '.$this->first_name;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;

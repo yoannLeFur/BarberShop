@@ -10,7 +10,28 @@
                 <h5 id="title-product">{{ product.name }}</h5>
                 <p id="price-product">{{ product.formatedPrice }} €</p>
                 <p id="description-product">{{ product.description }}</p>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text px-4" id="inputGroup-sizing-default"><i
+                                            class="fa fa-minus"></i></span>
+                            </div>
+                            <input type="number" min="0" class="form-control col-5 number-input px-4"
+                                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <div class="input-group-append">
+                                <span class="input-group-text px-4" id="inputGroup-sizing-default"><i
+                                            class="fa fa-plus"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-primary button">Ajouter</button>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 {% endblock %}

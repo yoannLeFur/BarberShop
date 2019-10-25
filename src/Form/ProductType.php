@@ -3,17 +3,14 @@
 
 namespace App\Form;
 
-
+use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
-use App\Entity\Property;
-use App\Entity\Users;
-use App\Repository\BrandRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,11 +21,13 @@ class ProductType  extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('name')
-            ->add('description')
-            ->add('price')
-            ->add('stock')
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('price', TextType::class)
+            ->add('stock', TextType::class)
+            ->add('image', FileType::class)
+            ->add('category', ChoiceType::class)
+            ->add('brand', ChoiceType::class)
         ;
     }
 
@@ -38,19 +37,6 @@ class ProductType  extends AbstractType
             'data_class' => Product::class,
             'translation_domain' => 'forms'
         ));
-    }
-
-    public function getCategory()
-    {
-        $choices = ProductCategory::class;
-        return $choices;
-
-    }
-
-    public function getBrand()
-    {
-        $choices = BrandRepository::class;
-        return $choices;
     }
 
 }

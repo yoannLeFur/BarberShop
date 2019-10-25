@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,9 @@ class ProductController extends AbstractController
      * @param ProductRepository $repository
      * @return Response
      */
-    public function index(ProductRepository $repository): Response
+    public function index(ProductRepository $productRepository): Response
     {
-        $products = $repository->findLatest();
+        $products = $productRepository->findLatest();
         return $this->render('product/index.html.twig', [
             "current_menu" => 'products',
             "products" => $products

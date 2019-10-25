@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Form\ProductType;
+use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,15 +20,16 @@ class AdminProductController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private $productRepository;
+
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ProductRepository $repository, ObjectManager $em)
+    public function __construct(ProductRepository $productRepository, ObjectManager $em)
     {
-        $this->repository = $repository;
+        $this->productRepository = $productRepository;
         $this->em = $em;
     }
 
@@ -46,7 +49,8 @@ class AdminProductController extends AbstractController
      */
     public function allProducts()
     {
-        $products = $this->repository->findAll();
+        $products = $this->productRepository->findAll();
+
         return $this->render('admin/product/index.html.twig', [
             "products" => $products
         ]);

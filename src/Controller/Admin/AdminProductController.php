@@ -6,7 +6,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use App\Entity\ProductCategory;
+use App\Entity\Property;
 use App\Form\ProductType;
+use App\Form\PropertyType;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -70,11 +72,34 @@ class AdminProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
+            $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
             return $this->redirectToRoute('admin.product.index');
         }
 
         return $this->render('admin/product/new.html.twig', [
             'property' => $product,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/product/{id}", name="admin.product.edit", methods="GET|POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(Product $product, Request $request)
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Le produit a été modifié avec succès');
+            return $this->redirectToRoute('admin.product.index');
+        }
+
+        return $this->render('admin/product/edit.html.twig', [
+            'product' => $product,
             'form' => $form->createView()
         ]);
     }

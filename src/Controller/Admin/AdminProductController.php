@@ -35,21 +35,11 @@ class AdminProductController extends AbstractController
         $this->em = $em;
     }
 
-
-    /**
-     * @Route("/admin", name="admin.base")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index()
-    {
-        return $this->render('admin/base.html.twig');
-    }
-
     /**
      * @Route("/admin/product", name="admin.product.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function allProducts()
+    public function index()
     {
         $products = $this->productRepository->findAll();
 

@@ -19,6 +19,7 @@
         <div class="row">
             <div class="col-md-12">{{ form_row(form.description, { 'attr': {'rows': 7} }) }}</div>
         </div>
+        {{ form_widget(form) }}
         <div class="text-center">
             <button class="btn btn-primary button">{{ button|default('Editer') }}</button>
         </div

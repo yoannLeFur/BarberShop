@@ -1,0 +1,110 @@
+<?php
+
+
+namespace App\Controller\Admin;
+
+use App\Entity\ProductCategory;
+use App\Form\ProductCategoryType;
+use App\Repository\ProductCategoryRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class AdminProductCategoryController extends AbstractController
+{
+    /**
+     * @var ProductCategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    public function __construct(ProductCategoryRepository $categoryRepository, ObjectManager $em)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->em = $em;
+    }
+
+
+    /**
+     * @Route("/admin/category", name="admin.category.index")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function index()
+    {
+        $categories = $this->categoryRepository->findAll();
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $categories
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/category/create", name="admin.category.new")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function new(Request $request)
+    {
+        $category = new ProductCategory();
+        $form = $this->createForm(ProductCategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($category);
+            $this->em->flush();
+            $this->addFlash('success', 'La nouvelle catégorie a été crée avec succès');
+            return $this->redirectToRoute('admin.category.index');
+        }
+
+        return $this->render('admin/category/new.html.twig', [
+            'category' => $category,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/category/{id}", name="admin.category.edit", methods="GET|POST")
+     * @param ProductCategory $category
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(ProductCategory $category, Request $request)
+    {
+        $form = $this->createForm(ProductCategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'La catégorie a été modifiée avec succès');
+            return $this->redirectToRoute('admin.category.index');
+        }
+
+        return $this->render('admin/category/edit.html.twig', [
+            'category' => $category,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/category/{id}", name="admin.category.delete", methods="DELETE")
+     * @param ProductCategory $category
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function delete(ProductCategory $category, Request $request)
+    {
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))) {
+            $this->em->remove($category);
+            $this->em->flush();
+            $this->addFlash('success', 'Cette catégorie a bien été supprimée');
+            return $this->redirectToRoute('admin.category.index');
+        }
+
+    }
+}

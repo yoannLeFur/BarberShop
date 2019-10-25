@@ -180,6 +180,7 @@ table {
     overflow: scroll;
 }
 
+table th,
 table td {
     text-align: center;
 }

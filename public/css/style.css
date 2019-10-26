@@ -179,8 +179,13 @@ admin
     color: #ffffff !important;
 }
 
+.dropdown-item:hover {
+    background: #ECECEC!important;
+    border-radius: 0;
+}
+
 .container-admin {
-    min-height: 86.4vh;
+    min-height: 87.8vh;
 }
 
 table {
@@ -194,7 +199,6 @@ table td {
 
 /* form */
 .button {
-    align-self: center;
     padding: 0.5rem 1rem;
     font-size: 2rem;
     border-radius: 5px;
@@ -204,4 +208,23 @@ table td {
     padding : 0.5rem;
     font-size: 2rem;
     border-radius: 5px;
+}
+
+
+/* basket */
+
+.basket {
+    width: 240px;
+}
+
+.basket-icon {
+    vertical-align: center;
+    font-size: 3rem;
+    color: #222222;
+    margin: 0;
+}
+
+.basket-par {
+    font-size: 1.6rem;
+    margin: 0;
 }

@@ -40,6 +40,26 @@
     {% if app.user %}
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'basket' %}active{% endif %}"
+                   href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Panier
+                </a>
+                <div class="dropdown-menu basket" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item button" href="{{ path('basket.index') }}">
+                        <div class="row">
+                            <div class="col-4 text-center p-3">
+                                <i class="basket-icon text-primary fa fa-shopping-basket" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-8 pl-0">
+                                <p class="basket-par">PRODUITS: <strong>1</strong></p>
+                                <p class="basket-par">PRIX TOTAL: <strong>36.45€</strong></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle button-link" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{app.user.fullname}}

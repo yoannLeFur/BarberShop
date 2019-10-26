@@ -35,21 +35,27 @@ h2 {
     margin-bottom: 3rem;
 }
 
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
 }
 
-h2,
+h2, h3,
 .home-link,
 #title-product {
     font-size: 3rem;
 }
 
-.register-link,
-.login-link,
-.boutique-link,
+.title-row {
+    border-bottom: 2px solid #696969;
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+}
+
+.button-link,
 #price-product {
+    width: 200px;
     font-size: 2.5rem;
+    text-align: center;
 }
 
 /* nav */
@@ -179,6 +185,11 @@ admin
 table {
     overflow: scroll;
 }
+
+/*table thead {*/
+/*    background-color: #000000;*/
+/*    color: #ffffff;*/
+/*}*/
 
 table th,
 table td {

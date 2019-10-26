@@ -37,6 +37,7 @@ class AdminUsersController extends AbstractController
     {
         $users = $this->usersRepository->findAll();
         return $this->render('admin/users/index.html.twig', [
+            "current_menu" => 'users',
             'users' => $users
         ]);
     }

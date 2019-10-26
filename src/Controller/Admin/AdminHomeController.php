@@ -16,6 +16,8 @@ class AdminHomeController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin/home.html.twig');
+        return $this->render('admin/home.html.twig', [
+            "current_menu" => 'home',
+        ]);
     }
 }

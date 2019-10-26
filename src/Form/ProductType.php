@@ -4,7 +4,6 @@
 namespace App\Form;
 
 use App\Entity\Brand;
-use App\Entity\Option;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

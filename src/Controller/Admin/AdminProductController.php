@@ -44,6 +44,7 @@ class AdminProductController extends AbstractController
         $products = $this->productRepository->findAll();
 
         return $this->render('admin/product/index.html.twig', [
+            "current_menu" => 'products',
             "products" => $products
         ]);
     }
@@ -67,6 +68,7 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/new.html.twig', [
+            "current_menu" => 'products',
             'property' => $product,
             'form' => $form->createView()
         ]);
@@ -89,6 +91,7 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/edit.html.twig', [
+            "current_menu" => 'products',
             'product' => $product,
             'form' => $form->createView()
         ]);

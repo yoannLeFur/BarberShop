@@ -39,6 +39,7 @@ class AdminProductCategoryController extends AbstractController
     {
         $categories = $this->categoryRepository->findAll();
         return $this->render('admin/category/index.html.twig', [
+            "current_menu" => 'categories',
             'categories' => $categories
         ]);
     }
@@ -63,6 +64,7 @@ class AdminProductCategoryController extends AbstractController
         }
 
         return $this->render('admin/category/new.html.twig', [
+            "current_menu" => 'categories',
             'category' => $category,
             'form' => $form->createView()
         ]);
@@ -86,6 +88,7 @@ class AdminProductCategoryController extends AbstractController
         }
 
         return $this->render('admin/category/edit.html.twig', [
+            "current_menu" => 'categories',
             'category' => $category,
             'form' => $form->createView()
         ]);

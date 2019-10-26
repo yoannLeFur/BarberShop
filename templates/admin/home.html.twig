@@ -1,7 +1,15 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block title 'Accueil' %}
+
 {% block body %}
-<div class="container mt-4">
-    <h2>Accueil</h2>
-</div>
+    <div class="row m-0">
+        <div class="menu-admin col-2">
+            {{ include('layout/sidebar.html.twig') }}
+        </div>
+        <div class="container-admin col-10">
+            <div class="container mt-4">
+                <h2>Accueil</h2>
+            </div>
+        </div>
+    </div>
 {% endblock %}

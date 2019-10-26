@@ -1,28 +1,35 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block title "Edition d'un produit" %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h2>Edition du produit n° <span class="text-primary">{{ product.id }}</span></h2>
+    <div class="row m-0">
+        <div class="menu-admin col-2">
+            {{ include('layout/sidebar.html.twig') }}
+        </div>
+        <div class="container-admin col-10">
+            <div class="container mt-4">
+                <h2>Edition du produit n° <span class="text-primary">{{ product.id }}</span></h2>
 
-        {{ form_start(form) }}
-        <div class="row">
-            <div class="col-md-4">{{ form_row(form.name) }}</div>
-            <div class="col-md-4">{{ form_row(form.price) }}</div>
-            <div class="col-md-4">{{ form_row(form.stock) }}</div>
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.name) }}</div>
+                    <div class="col-md-4">{{ form_row(form.price) }}</div>
+                    <div class="col-md-4">{{ form_row(form.stock) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.image) }}</div>
+                    <div class="col-md-4">{{ form_row(form.category) }}</div>
+                    <div class="col-md-4">{{ form_row(form.brand) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">{{ form_row(form.description, { 'attr': {'rows': 7} }) }}</div>
+                </div>
+                {{ form_widget(form) }}
+                <div class="text-center">
+                    <button class="btn btn-primary button">{{ button|default('Editer') }}</button>
+                </div
+                {{ form_end(form) }}
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">{{ form_row(form.image) }}</div>
-            <div class="col-md-4">{{ form_row(form.category) }}</div>
-            <div class="col-md-4">{{ form_row(form.brand) }}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">{{ form_row(form.description, { 'attr': {'rows': 7} }) }}</div>
-        </div>
-        {{ form_widget(form) }}
-        <div class="text-center">
-            <button class="btn btn-primary button">{{ button|default('Editer') }}</button>
-        </div
-        {{ form_end(form) }}
     </div>
 {% endblock %}

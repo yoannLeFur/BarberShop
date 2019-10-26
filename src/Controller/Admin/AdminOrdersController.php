@@ -36,6 +36,7 @@ class AdminOrdersController extends AbstractController
     {
         $orders = $this->orderRepository->findAll();
         return $this->render('admin/orders/index.html.twig', [
+            "current_menu" => 'orders',
             'orders' => $orders
         ]);
     }

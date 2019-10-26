@@ -5,11 +5,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Product;
-use App\Entity\ProductCategory;
-use App\Entity\Property;
 use App\Form\ProductType;
-use App\Form\PropertyType;
-use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +40,7 @@ class AdminProductController extends AbstractController
         $products = $this->productRepository->findAll();
 
         return $this->render('admin/product/index.html.twig', [
-            "current_menu" => 'products',
+            "current_menu" => 'products-admin',
             "products" => $products
         ]);
     }
@@ -68,8 +64,8 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/new.html.twig', [
-            "current_menu" => 'products',
-            'property' => $product,
+            "current_menu" => 'products-admin',
+            'product' => $product,
             'form' => $form->createView()
         ]);
     }
@@ -91,7 +87,7 @@ class AdminProductController extends AbstractController
         }
 
         return $this->render('admin/product/edit.html.twig', [
-            "current_menu" => 'products',
+            "current_menu" => 'products-admin',
             'product' => $product,
             'form' => $form->createView()
         ]);

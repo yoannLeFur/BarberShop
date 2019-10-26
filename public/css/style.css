@@ -53,7 +53,7 @@ h2, h3,
 
 .button-link,
 #price-product {
-    width: 200px;
+    width: 240px;
     font-size: 2.5rem;
     text-align: center;
 }
@@ -111,9 +111,8 @@ h2, h3,
 }
 
 .search-nav ul li:hover {
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(105, 105, 105, 1) 100%);
-    border-radius: 5px;
-    color: #000000;
+    background: #222222;
+    color: #ffffff;
 }
 
 /* products */
@@ -123,16 +122,19 @@ h2, h3,
 }
 
 .price-paragraphe {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.4);
     font-size: 2.5rem;
-    color: #ffffff;
+    font-weight: bold;
+    color: #c45c45;
     padding: 5px;
     margin: 0;
 }
 
 .title-product-link {
+    background-color: rgba(255, 255, 255, 0.4);
     color: #000000;
     text-align: center;
+    margin: 0;
 }
 
 
@@ -158,24 +160,23 @@ admin
 
 .menu-admin {
     background-color: #000000;
+    padding: 0;
 }
 
 .menu-admin div a {
     color: #696969;
-    margin: 2px 0;
+    margin: 0;
 }
 
 .menu-admin div a:hover {
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(105, 105, 105, 1) 100%);
-    border-radius: 3px;
-    color: #000000;
+    background: #222222;
+    color: #ffffff;
 }
 
 .nav-link.active,
 .show > .nav-link {
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(105, 105, 105, 1) 100%) !important;
-    color: #000000 !important;
-    border-radius: 3px;
+    background: #222222!important;
+    color: #ffffff !important;
 }
 
 .container-admin {
@@ -185,11 +186,6 @@ admin
 table {
     overflow: scroll;
 }
-
-/*table thead {*/
-/*    background-color: #000000;*/
-/*    color: #ffffff;*/
-/*}*/
 
 table th,
 table td {

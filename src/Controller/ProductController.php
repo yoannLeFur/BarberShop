@@ -15,7 +15,7 @@ class ProductController extends AbstractController
 {
 
     /**
-     * @Route(name="product.index",path="/boutique")
+     * @Route(path="/boutique", name="product.index")
      * @param ProductRepository $repository
      * @return Response
      */

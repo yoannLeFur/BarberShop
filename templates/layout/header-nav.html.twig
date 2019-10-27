@@ -14,16 +14,19 @@
         </ul>
     </div>
     {% if not app.user %}
-        <ul class="navbar-nav">
-            <li class="nav-item">
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}" href="#" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user"></i>
+            </a>
+            <div class="dropdown-menu security" aria-labelledby="navbarDropdownMenuLink">
                 <a href="{{ path('register') }}"
-                   class="nav-link button-link {% if current_menu is defined and current_menu == 'register' %}active{% endif %}">Inscription</a>
-            </li>
-            <li class="nav-item">
+                   class="dropdown-item button">Inscription</a>
                 <a href="{{ path('login') }}"
-                   class="nav-link button-link {% if current_menu is defined and current_menu == 'login' %}active{% endif %}">Connexion</a>
-            </li>
-        </ul>
+                   class="dropdown-item button">Connexion</a>
+            </div>
+        </li>
     {% endif %}
     {% if app.user %}
         <ul class="navbar-nav">

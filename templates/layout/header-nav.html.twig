@@ -55,11 +55,11 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ app.user.fullname }}
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item button" href="#">Mes informations</a>
-                    <a class="dropdown-item button" href="#">Mes commandes</a>
-                    <a class="dropdown-item button" href="#">Modifier le mot de passe</a>
+                <div class="dropdown-menu security" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item button" href="#">Mon profil</a>
+                    {% if app.user.roles == ['ROLE_ADMIN'] %}
                     <a class="dropdown-item button" href="{{ path('admin.home') }}">Administration</a>
+                    {% endif %}
                     <a class="dropdown-item button" href="{{ path('logout') }}">Se déconnecter</a>
                 </div>
             </li>

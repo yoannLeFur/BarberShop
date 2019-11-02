@@ -187,7 +187,7 @@ class Users implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return $this->roles->getId() == 1 ? ['ROLE_USER']: ['ROLE_ADMIN'];
     }
 
     /**

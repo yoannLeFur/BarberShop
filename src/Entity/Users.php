@@ -43,6 +43,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=64, unique=true)
      * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $username;
 
@@ -70,6 +71,31 @@ class Users implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="user")
      */
     private $orders;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $mobile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $postal_code;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -124,6 +150,8 @@ class Users implements UserInterface, \Serializable
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
     }
 
     public function getFullname()
@@ -311,5 +339,65 @@ class Users implements UserInterface, \Serializable
             $this->username,
             $this->password
             ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile(string $mobile): self
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postal_code;
+    }
+
+    public function setPostalCode(string $postal_code): self
+    {
+        $this->postal_code = $postal_code;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
     }
 }

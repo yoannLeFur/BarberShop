@@ -186,6 +186,7 @@ admin
 
 .dropdown-item-basket:hover {
     background: #ffffff!important;
+    color: #000000;
     border-radius: 0;
 }
 
@@ -218,6 +219,12 @@ table td {
     padding : 0.5rem;
     font-size: 2rem;
     border-radius: 5px;
+}
+
+.form-control-basket {
+    padding : 0.5rem;
+    font-size: 1rem;
+    border-radius: 0;
 }
 
 

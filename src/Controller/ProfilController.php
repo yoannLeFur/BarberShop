@@ -42,7 +42,6 @@ class ProfilController extends AbstractController
      */
     public function index(): Response
     {
-
         $this->getUser()->getId();
         return $this->render('profil/index.html.twig', [
             "current_menu" => 'user',

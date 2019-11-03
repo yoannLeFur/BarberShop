@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block title 'Mon profil' %}
+
+{% block body %}
+    <div class="container mt-4">
+
+        <div class="row title-row">
+
+            <div class="offset-1 col-10">
+                <h3>Mes informations</h3>
+            </div>
+            <div class="col-1">
+                <a href="" class="btn btn-dark button"
+                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Nom : {{ user.lastName }}</p>
+                        <p class="card-text">Prénom :</p>
+                        <p class="card-text">Sexe :</p>
+                        <p class="card-text">Email :</p>
+                        <p class="card-text">Mot de passe :</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Mobile :</p>
+                        <p class="card-text">Adresse :</p>
+                        <p class="card-text">Code Postal :</p>
+                        <p class="card-text">Ville :</p>
+                        <p class="card-text">Pays :</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="title-h2 text-center">Mes commandes</h2>
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>type de payment</th>
+                <th>Prix total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.user.fullname }}</td>
+                    <td>{{ order.formattedDate }}</td>
+                    <td>{{ order.paymentMethod.name }}</td>
+                    <td>{{ order.formattefTotalPrice }}</td>
+                    <td>
+                        <a href="" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye"
+                                                                                                aria-hidden="true"></i></a>
+                        <a href="" class="btn btn-dark button" title="facture de la commande"><i class="fa fa-download"
+                                                                                                 aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -169,6 +170,11 @@ class Users implements UserInterface, \Serializable
     public function getFormattedDate()
     {
         return date_format($this->creation_date, 'd/m/Y H:i:s');
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->getFullname());
     }
 
     /**

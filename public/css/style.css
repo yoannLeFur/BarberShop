@@ -184,6 +184,16 @@ admin
     border-radius: 0;
 }
 
+.dropdown-item-basket:hover {
+    background: #ffffff!important;
+    border-radius: 0;
+}
+
+.card-body-hover:hover {
+    background: #ECECEC!important;
+    border-radius: 0;
+}
+
 .container-admin {
     min-height: 90.6vh;
 }
@@ -213,9 +223,12 @@ table td {
 
 /* basket */
 
-.security,
-.basket {
+.security {
     width: 240px;
+}
+
+.basket {
+    width: 400px;
 }
 
 .basket-icon {

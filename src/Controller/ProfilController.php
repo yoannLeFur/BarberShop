@@ -40,18 +40,13 @@ class ProfilController extends AbstractController
      * @Route(path="/profil", name="profil.index")
      * @return Response
      */
-    public function index($id): Response
+    public function index(): Response
     {
-        $user = $this->getDoctrine()->getRepository(Users::class)->find($id);
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'No user found for id '.$id
-            );
-        }
-        $this->em->flush();
+
+        $this->getUser()->getId();
         return $this->render('profil/index.html.twig', [
             "current_menu" => 'user',
-            'users' => $user->getId(),
+            'user' => $this->getUser()
         ]);
     }
 }

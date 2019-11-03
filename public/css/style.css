@@ -139,12 +139,12 @@ h2, h3,
 
 
 /* products */
-.card-body {
+.card-body-product {
     transform: scale(1);
     transition: all 0.3s;
 }
 
-.card-body:hover {
+.card-body-product:hover {
     transform: scale(1.1);
     transition: all 0.3s;
 }

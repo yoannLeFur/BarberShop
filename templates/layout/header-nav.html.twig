@@ -51,12 +51,13 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle button-link" href="#" role="button"
+                <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
+                   href="#" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ app.user.fullname }}
                 </a>
                 <div class="dropdown-menu security" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item button" href="#">Mon profil</a>
+                    <a class="dropdown-item button" href="{{ path('profil.index')}}">Mon profil</a>
                     {% if app.user.roles == ['ROLE_ADMIN'] %}
                     <a class="dropdown-item button" href="{{ path('admin.home') }}">Administration</a>
                     {% endif %}

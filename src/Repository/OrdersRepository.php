@@ -19,6 +19,10 @@ class OrdersRepository extends ServiceEntityRepository
         parent::__construct($registry, Orders::class);
     }
 
+    public function findAllById() {
+
+    }
+
     // /**
     //  * @return Orders[] Returns an array of Orders objects
     //  */

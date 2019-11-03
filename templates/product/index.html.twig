@@ -48,10 +48,16 @@
             {% for product in products %}
                 <div class="col-md-4">
                     <div class="card my-3">
-                        <div class="card-body p-0">
+                        <div class="card-body card-body-product p-0">
                             <a class="product-link" href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
                                 <div>
-                                    <img class="img-product rounded-top" src="/images/empty.jpg" alt="">
+                                    {% if product.image %}
+                                        <img src="{{ 'images/products' }}" alt="card-img-top"
+                                             style="width: 100%; height: auto;">
+                                    {% else %}
+                                        <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
+                                             style="width: 100%; height: auto;">
+                                    {% endif %}
                                 </div>
                                 <div class="color-card">
                                     <h5 class="title-product-link p-3">{{ product.name }}</h5>

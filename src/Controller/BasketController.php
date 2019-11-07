@@ -19,6 +19,7 @@ class BasketController extends AbstractController
     {
         return $this->render('basket/index.html.twig', [
             "current_menu" => 'basket'
+
         ]);
     }
 }

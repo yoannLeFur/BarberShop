@@ -20,21 +20,19 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">Nom : {{ user.lastName }}</p>
-                        <p class="card-text">Prénom :</p>
-                        <p class="card-text">Sexe :</p>
-                        <p class="card-text">Email :</p>
-                        <p class="card-text">Mot de passe :</p>
+                        <p class="card-text">Prénom : {{ user.firstName }}</p>
+                        <p class="card-text">Email : {{ user.email }}</p>
+                        <p class="card-text m-0">Mot de passe : <a href="#" class="btn btn-primary">Editer le mot de passe</a></p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-text">Mobile :</p>
-                        <p class="card-text">Adresse :</p>
-                        <p class="card-text">Code Postal :</p>
-                        <p class="card-text">Ville :</p>
-                        <p class="card-text">Pays :</p>
+                        <p class="card-text">Mobile : {{ user.mobile }}</p>
+                        <p class="card-text">Adresse : {{ user.address }}</p>
+                        <p class="card-text">Ville : {{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text">Pays : {{ user.country }}</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +69,6 @@
 {#            {% endfor %}#}
             </tbody>
         </table>
-
 
     </div>
 {% endblock %}

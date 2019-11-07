@@ -31,40 +31,102 @@
         {% endif %}
         {% if app.user %}
             <ul class="navbar-nav">
+                {#                <li class="nav-item dropdown">#}
+                {#                    <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'basket' %}active{% endif %}"#}
+                {#                       href="#" id="navbarDropdownMenuLink" role="button"#}
+                {#                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                {#                        Panier#}
+                {#                    </a>#}
+                {#                    <div class="dropdown-menu basket">#}
+                {#                        {% for product in products %}#}
+                {#                            <div class="dropdown-item dropdown-item-basket">#}
+                {#                                <div class="col-12 p-0">#}
+                {#                                    <div class="card" style="width: 100%">#}
+                {#                                        <div class="card-body card-body-hover">#}
+                {#                                            <div class="row">#}
+                {#                                                <div class="col-3">#}
+                {#                                                    <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"#}
+                {#                                                         style="width: 100%; height: auto;">#}
+                {#                                                </div>#}
+                {#                                                <div class="col-9">#}
+                {#                                                    <h5 class="basket-par text-center p-3">{{ product.name }}</h5>#}
+                {#                                                    <p class="basket-par text-center p-3">{{ product.formatedPrice }} €</p>#}
+                {#                                                    <div class="row">#}
+                {#                                                        <div class="col-12">#}
+                {#                                                            <div class="input-group mb-3">#}
+                {#                                                                <div class="input-group-prepend">#}
+                {#                                                                    <span class="input-group-text px-4" id="inputGroup-sizing-default">#}
+                {#                                                                        <i class="fa fa-minus"></i>#}
+                {#                                                                    </span>#}
+                {#                                                                </div>#}
+                {#                                                                <input type="number" min="0" class="form-control col-5 number-input px-4"#}
+                {#                                                                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">#}
+                {#                                                                <div class="input-group-append">#}
+                {#                                                                    <span class="input-group-text px-4" id="inputGroup-sizing-default">#}
+                {#                                                                        <i class="fa fa-plus"></i>#}
+                {#                                                                    </span>#}
+                {#                                                                </div>#}
+                {#                                                            </div>#}
+                {#                                                        </div>#}
+                {#                                                    </div>#}
+                {#                                                </div>#}
+                {#                                            </div>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        {% endfor %}#}
+                {#                        <div class="col-12">#}
+                {#                            <div class="card" style="width: 100%;">#}
+                {#                                <div class="card-body">#}
+                {#                                    <p class="basket-par ">PRIX TOTAL: €</p>#}
+                {#                                    <a href="{{ path('basket.index') }}" class="btn btn-success button">Commande</a>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </li>#}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'basket' %}active{% endif %}"
                        href="#" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Panier
                     </a>
-                    <div class="dropdown-menu basket">
-                        {% for product in products %}
-                            <div class="dropdown-item dropdown-item-basket">
-                                <div class="col-12 p-0">
-                                    <div class="card" style="width: 100%">
-                                        <div class="card-body card-body-hover">
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
-                                                         style="width: 100%; height: auto;">
-                                                </div>
-                                                <div class="col-9">
-                                                    <h5 class="basket-par text-center p-3">{{ product.name }}</h5>
-                                                    <p class="basket-par text-center p-3">{{ product.formatedPrice }} €</p>
-                                                    <div class="row">
-                                                        <div class="col-12">
+                    <div class="dropdown-menu basket p-0">
+                        <div class="dropdown-item dropdown-item-basket">
+                            <div class="col-12 p-0">
+                                <div class="card" style="width: 100%">
+                                    <div class="card-body card-body-hover">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
+                                                     style="width: 100%; height: auto;">
+                                            </div>
+                                            <div class="col-9">
+                                                <h5 class="basket-par text-center p-3">Huile Pour Barbe Havana Soup</h5>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <p class="basket-par text-center p-3">102.90 €</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="col-12 p-2">
                                                             <div class="input-group mb-3">
                                                                 <div class="input-group-prepend">
-                                                                    <span class="input-group-text px-4" id="inputGroup-sizing-default">
-                                                                        <i class="fa fa-minus"></i>
-                                                                    </span>
+                                                                <span class="input-group-text"
+                                                                      id="inputGroup-sizing-default">
+                                                                    <i class="fa fa-minus"></i>
+                                                                </span>
                                                                 </div>
-                                                                <input type="number" min="0" class="form-control col-5 number-input px-4"
-                                                                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                                <input type="number" min="0"
+                                                                       class="form-control-basket col-5 number-input"
+                                                                       aria-label="Sizing example input"
+                                                                       aria-describedby="inputGroup-sizing-default">
                                                                 <div class="input-group-append">
-                                                                    <span class="input-group-text px-4" id="inputGroup-sizing-default">
-                                                                        <i class="fa fa-plus"></i>
-                                                                    </span>
+                                                                <span class="input-group-text"
+                                                                      id="inputGroup-sizing-default">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -75,18 +137,29 @@
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
-                        <div class="col-12">
-                            <div class="card" style="width: 100%;">
-                                <div class="card-body">
-                                    <p class="basket-par ">PRIX TOTAL: €</p>
-                                    <a href="{{ path('basket.index') }}" class="btn btn-success button">Commande</a>
+                        </div>
+                        <div class="col-12 p-3">
+                            <div class="row">
+                                <div class="col-6 text-left">
+                                    <p class="basket-par p-2 col-12">LIVRAISON:</p>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <p class="basket-par p-2 col-12">5.90 €</p>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6 text-left">
+                                <p class="basket-par p-2 col-12">PRIX TOTAL:</p>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <p class="basket-par p-2 col-12">102.90 €</p>
+                                </div>
+                            </div>
+                                <a href="{{ path('basket.index') }}"
+                                   class="btn btn-success button col-12">Commande</a>
                         </div>
                     </div>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
                        href="#" role="button"

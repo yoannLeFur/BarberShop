@@ -6,7 +6,11 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use App\Repository\PropertyRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,13 +18,31 @@ class ProductController extends AbstractController
 {
 
     /**
+     * @var ProductRepository
+     */
+    private $repository;
+
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    public function __construct(ProductRepository $repository, ObjectManager $em)
+    {
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+
+    /**
      * @Route(path="/boutique", name="product.index")
-     * @param ProductRepository $repository
      * @return Response
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $products = $productRepository->findLatest();
+        $products = $paginator->paginate(
+            $this->repository->findAll(),
+            $request->query->getInt('page', 1), 8
+        );
         return $this->render('product/index.html.twig', [
             "current_menu" => 'products',
             "products" => $products

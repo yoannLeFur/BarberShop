@@ -46,7 +46,7 @@
     <div class="container mt-5 p-0">
         <div class="row">
             {% for product in products %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card my-3">
                         <div class="card-body card-body-product p-0">
                             <a class="product-link" href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
@@ -68,6 +68,9 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(products) }}
         </div>
     </div>
 {% endblock %}

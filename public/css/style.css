@@ -19,11 +19,12 @@ ul {
 li,
 .label-size,
 .description,
-#description-product,
-.title-product-link {
+#description-product {
     font-size: 2rem;
 }
-
+.title-product-link {
+    font-size: 1.6rem;
+}
 h1 {
     font-size: 4rem;
 

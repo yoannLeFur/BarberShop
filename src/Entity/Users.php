@@ -33,12 +33,12 @@ class Users implements UserInterface, \Serializable
      */
     private $first_name;
 
-    /**
-     * @ORM\Column(type="string", length=64, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
+//    /**
+//     * @ORM\Column(type="string", length=64, unique=true)
+//     * @Assert\NotBlank()
+//     * @Assert\Email()
+//     */
+//    private $email;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
@@ -161,12 +161,12 @@ class Users implements UserInterface, \Serializable
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $username): self
     {
-        $this->email = $email;
+        $this->username = $username;
 
         return $this;
     }

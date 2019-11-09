@@ -10,7 +10,7 @@
                 <h3>Mes informations</h3>
             </div>
             <div class="col-1">
-                <a href="" class="btn btn-dark button"
+                <a href="{{ path('profil.edit',  {id: user.id }) }}" class="btn btn-dark button"
                    title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             </div>
         </div>
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <p class="card-text">Nom : {{ user.lastName }}</p>
                         <p class="card-text">Prénom : {{ user.firstName }}</p>
-                        <p class="card-text">Email : {{ user.email }}</p>
+                        <p class="card-text">Email : {{ user.username }}</p>
                         <p class="card-text m-0">Mot de passe : <a href="#" class="btn btn-primary">Editer le mot de passe</a></p>
                     </div>
                 </div>

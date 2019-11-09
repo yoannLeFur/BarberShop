@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
-use App\Repository\PropertyRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

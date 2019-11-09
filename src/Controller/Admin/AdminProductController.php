@@ -57,11 +57,11 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
-//            $this->em->persist($product);
-//            $this->em->flush();
-//            $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
-//            return $this->redirectToRoute('admin.product.index');
+//            dump($form->getData());
+            $this->em->persist($product);
+            $this->em->flush();
+            $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
+            return $this->redirectToRoute('admin.product.index');
         }
 
         return $this->render('admin/product/new.html.twig', [
@@ -83,9 +83,9 @@ class AdminProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            $this->em->flush();
-//            $this->addFlash('success', 'Le produit a été modifié avec succès');
-//            return $this->redirectToRoute('admin.product.index');
+            $this->em->flush();
+            $this->addFlash('success', 'Le produit a été modifié avec succès');
+            return $this->redirectToRoute('admin.product.index');
         }
 
         return $this->render('admin/product/edit.html.twig', [

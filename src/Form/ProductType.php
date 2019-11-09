@@ -4,6 +4,7 @@
 namespace App\Form;
 
 use App\Entity\Brand;
+use App\Entity\Images;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,8 @@ class ProductType  extends AbstractType
             ->add('price', TextType::class)
             ->add('stock', TextType::class)
             ->add('image', FileType::class, [
-                'required' => false
+                'class' => Images::class,
+                'required' => false,
             ])
             ->add('category', EntityType::class, [
                 'placeholder' => 'choisir une catégorie',

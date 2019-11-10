@@ -4,68 +4,76 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Images;
 use App\Entity\Product;
+use App\Form\ImageType;
 use App\Form\ProductType;
+use App\Repository\ImagesRepository;
 use App\Repository\ProductRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminProductController extends AbstractController
+class AdminImageController extends AbstractController
 {
 
     /**
-     * @var ProductRepository
+     * @var ImagesRepository
      */
-    private $productRepository;
+    private $imagesRepository;
 
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ProductRepository $productRepository, ObjectManager $em)
+    public function __construct(ImagesRepository $imagesRepository, ObjectManager $em)
     {
-        $this->productRepository = $productRepository;
+        $this->imagesRepository = $imagesRepository;
         $this->em = $em;
     }
 
     /**
-     * @Route("/admin/product", name="admin.product.index")
+     * @Route("/admin/image", name="admin.image.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()
     {
-        $products = $this->productRepository->findAll();
-
-        return $this->render('admin/product/index.html.twig', [
-            "current_menu" => 'products-admin',
-            "products" => $products
+        return $this->render('admin/images/index.html.twig', [
+            "current_menu" => 'images-admin',
         ]);
     }
 
     /**
-     * @Route("/admin/product/create", name="admin.product.new")
+     * @Route("/admin/images/create", name="admin.images.new")
      * @param Request $request
+     * @param FileUploader $fileUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request, FileUploader $fileUploader)
     {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $images = new Images();
+        $form = $this->createForm(ImageType::class, $images);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($product);
+            dd($form['image']->getData());
+            $brochureFile = $form['image']->getData();
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $images->setImage($brochureFileName);
+            }
+            $this->em->persist($images);
             $this->em->flush();
             $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
-            return $this->redirectToRoute('admin.product.index');
+            return $this->redirectToRoute('admin.image.index');
         }
 
-        return $this->render('admin/product/new.html.twig', [
+        return $this->render('admin/images/new.html.twig', [
             "current_menu" => 'products-admin',
-            'product' => $product,
+            'product' => $images,
             'form' => $form->createView()
         ]);
     }

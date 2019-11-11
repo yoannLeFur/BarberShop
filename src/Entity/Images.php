@@ -19,7 +19,7 @@ class Images
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $path;
+    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="images")
@@ -31,14 +31,14 @@ class Images
         return $this->id;
     }
 
-    public function getPath(): ?string
+    public function getImage(): ?string
     {
-        return $this->path;
+        return $this->image;
     }
 
-    public function setPath(?string $path): self
+    public function setImage(?string $image): self
     {
-        $this->path = $path;
+        $this->image = $image;
 
         return $this;
     }

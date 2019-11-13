@@ -28,16 +28,6 @@ class ImageType  extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image (jpg, jpeg)',
                 'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/jpg',
-                            'application/jpeg',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid jpg file',
-                    ])
-                ],
             ])
         ;
     }

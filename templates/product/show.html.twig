@@ -4,7 +4,14 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-5">
-                <img src="/images/empty.jpg" alt="">
+                {% if product.image %}
+                    <img src="{{ '/images/products/' ~ product.image }}"
+                         alt="card-img-top"
+                         style="width: 100%; height: auto;">
+                {% else %}
+                    <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
+                         style="width: 100%; height: auto;">
+                {% endif %}
             </div>
             <div class="col-7">
                 <h5 id="title-product">{{ product.name }}</h5>

@@ -25,6 +25,11 @@ class ProductType  extends AbstractType
             ->add('description', TextareaType::class)
             ->add('price', TextType::class)
             ->add('stock', TextType::class)
+            ->add('image', FileType::class, [
+                'label' => 'Image (jpg, jpeg)',
+                'data_class' => null,
+                'required' => false,
+            ])
             ->add('category', EntityType::class, [
                 'placeholder' => 'choisir une catégorie',
                 'class' => ProductCategory::class,

@@ -59,7 +59,7 @@ class AdminImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form['image']->getData());
+//            dd($form['image']->getData());
             $brochureFile = $form['image']->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);

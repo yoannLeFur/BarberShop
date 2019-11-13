@@ -59,7 +59,7 @@ class ProductController extends AbstractController
         if($product->getSlug() !== $slug) {
             return $this->redirectToRoute('product.show', [
                 'id' => $product->getId(),
-                'slug' => $product->getSlug()
+                'slug' => $product->getSlug(),
             ], 301);
         }
         return $this->render('product/show.html.twig', [

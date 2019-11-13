@@ -24,6 +24,37 @@
                     <h2 class="text-center">Les derniers produits</h2>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3">
+                    <div class="card my-3">
+                        <div class="card-body card-body-product p-0">
+                            <a class="product-link"
+                               href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
+                                <div>
+                                    {% if product.image %}
+                                        <img src="{{ 'images/products/' ~ product.image }}"
+                                             alt="card-img-top"
+                                             style="width: 100%; height: auto;">
+                                    {% else %}
+                                        <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
+                                             style="width: 100%; height: auto;">
+                                    {% endif %}
+                                </div>
+                                <div class="color-card">
+                                    <h5 class="title-product-link p-3"
+                                        title="{{ product.name }}">{{ product.name }}</h5>
+                                    <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+
             <div class="col-12">
                 <div class="title-h2">
                     <h2 class="text-center">Qui nous sommes ?</h2>
@@ -37,6 +68,8 @@
                         per minutias aurigarum equorumque praecipua vel delicta scrutantes.</p>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <div class="title-h2">
                     <h2 class="text-center">Nos Partenaires</h2>

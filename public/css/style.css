@@ -253,3 +253,16 @@ table td {
     font-size: 1.6rem;
     margin: 0;
 }
+
+
+/* table */
+
+.td-image {
+    width: 20%;
+}
+.td-options {
+    width: 25%;
+}
+.td-name {
+    width: 55%;
+}

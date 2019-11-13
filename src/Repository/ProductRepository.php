@@ -26,9 +26,11 @@ class ProductRepository extends ServiceEntityRepository
     public function findLatest(): array {
         return $this->createQueryBuilder('p')
             ->setMaxResults(4)
+            ->orderBy("p.creation_date", 'DESC')
             ->getQuery()
             ->getResult();
     }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

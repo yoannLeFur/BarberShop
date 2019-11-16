@@ -111,6 +111,14 @@ h2, h3,
     color: #696969;
 }
 
+.search-nav ul li .a-link{
+    color: #696969;
+}
+
+.search-nav ul li:hover .a-link{
+    color: #ffffff;
+}
+
 .search-nav ul li:hover {
     background: #222222;
     color: #ffffff;

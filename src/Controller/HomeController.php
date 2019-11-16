@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,16 +19,22 @@ class HomeController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private $productRepository;
+
+    /**
+     * @var BrandRepository
+     */
+    private $brandRepository;
 
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ProductRepository $repository, ObjectManager $em)
+    public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository, ObjectManager $em)
     {
-        $this->repository = $repository;
+        $this->productRepository = $productRepository;
+        $this->brandRepository = $brandRepository;
         $this->em = $em;
     }
 
@@ -37,9 +44,11 @@ class HomeController extends AbstractController
      */
     public function index(): Response {
 
-        $products = $this->repository->findLatest();
+        $products = $this->productRepository->findLatest();
+        $brands = $this->brandRepository->findAll();
         return $this->render('pages/home.html.twig', [
             "current_menu" => 'products',
+            "brands" => $brands,
             "products" => $products
         ]);
     }

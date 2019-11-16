@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Brand;
 use App\Form\BrandType;
 use App\Repository\BrandRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,13 +51,18 @@ class AdminBrandController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request, FileUploader $fileUploader)
     {
         $brand = new Brand();
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brandFile = $form['image']->getData();
+            if ($brandFile) {
+                $brandFileName = $fileUploader->upload($brandFile);
+                $brand->setImage($brandFileName);
+            }
             $this->em->persist($brand);
             $this->em->flush();
             $this->addFlash('success', 'La nouvelle marque a été crée avec succès');
@@ -76,12 +82,17 @@ class AdminBrandController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Brand $brand, Request $request)
+    public function edit(Brand $brand, Request $request, FileUploader $fileUploader)
     {
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brandFile = $form['image']->getData();
+            if ($brandFile) {
+                $brandFileName = $fileUploader->upload($brandFile);
+                $brand->setImage($brandFileName);
+            }
             $this->em->flush();
             $this->addFlash('success', 'La marque a été modifiée avec succès');
             return $this->redirectToRoute('admin.brand.index');

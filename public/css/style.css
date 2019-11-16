@@ -266,3 +266,8 @@ table td {
 .td-name {
     width: 55%;
 }
+
+
+#add {
+    cursor: pointer;
+}

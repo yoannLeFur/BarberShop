@@ -1,17 +1,13 @@
 <?php
 
-
 namespace App\Controller;
 
-
-use App\Entity\Product;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class HomeController extends AbstractController
 {
@@ -47,7 +43,7 @@ class HomeController extends AbstractController
         $products = $this->productRepository->findLatest();
         $brands = $this->brandRepository->findAll();
         return $this->render('pages/home.html.twig', [
-            "current_menu" => 'products',
+            "current_menu" => 'last_products',
             "brands" => $brands,
             "products" => $products
         ]);

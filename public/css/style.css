@@ -10,6 +10,7 @@ body {
     font-size: 2rem;
     margin: 0;
     padding: 0;
+    line-height: 1.4;
 }
 
 ul {
@@ -124,6 +125,35 @@ h2, h3,
     color: #ffffff;
 }
 
+.search .select2-selection,
+.search .form-control {
+    background-color: #000000;
+    color: #ffffff;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 1px solid #222222;
+}
+
+.search .form-group {
+    margin: 0;
+}
+
+.search .label-style,
+.search .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #222222;
+    color: #ffffff;
+    border: #222222;
+}
+
+.button-search {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.button-search:hover {
+    background-color: #ffffff;
+    color: #222222;
+}
 /* products */
 .color-card {
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(105, 105, 105, 1) 100%);
@@ -238,6 +268,7 @@ table td {
     font-size: 1rem;
     border-radius: 0;
 }
+
 
 
 /* basket */

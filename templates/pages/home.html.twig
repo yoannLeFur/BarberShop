@@ -76,5 +76,25 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            {% for brand in brands %}
+                <div class="col-lg-2">
+                    <div class="card my-3">
+                        <div class="card-body card-body-product p-0">
+                            <div>
+                                {% if brand.image %}
+                                    <img src="{{ 'images/products/' ~ brand.image }}"
+                                         alt="card-img-top"
+                                         style="width: 100%; height: auto;">
+                                {% else %}
+                                    <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
+                                         style="width: 100%; height: auto;">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

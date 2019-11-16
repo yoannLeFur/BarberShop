@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
@@ -19,16 +20,22 @@ class ProductController extends AbstractController
     /**
      * @var ProductRepository
      */
-    private $repository;
+    private $productRepository;
+
+    /**
+     * @var BrandRepository
+     */
+    private $brandRepository;
 
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ProductRepository $repository, ObjectManager $em)
+    public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository, ObjectManager $em)
     {
-        $this->repository = $repository;
+        $this->productRepository = $productRepository;
+        $this->brandRepository = $brandRepository;
         $this->em = $em;
     }
 
@@ -38,12 +45,16 @@ class ProductController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $brands = $this->brandRepository->findAll();
+
         $products = $paginator->paginate(
-            $this->repository->findAll(),
+            $this->productRepository->findAll(),
             $request->query->getInt('page', 1), 8
         );
         return $this->render('product/index.html.twig', [
             "current_menu" => 'products',
+            "current_menu_brand" => 'brands',
+            "brands" => $brands,
             "products" => $products
         ]);
     }

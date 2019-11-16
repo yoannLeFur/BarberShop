@@ -37,7 +37,20 @@
                         <a class="nav-link huile-link">Coffrets</a>
                     </li>
                     <li class="li-link">
-                        <a class="nav-link huile-link">Marques</a>
+                        <a class="a-link nav-link dropdown-toggle huile-link {% if current_menu_brand is defined and current_menu_brand == 'brand' %}active{% endif %}"
+                           href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Marques
+                        </a>
+                        <div class="dropdown-menu security" aria-labelledby="navbarDropdownMenuLink">
+                            {% for brand in brands %}
+                                <a class="dropdown-item button" href="#">
+                                    <div>
+                                        <h5>{{ brand.name }}</h5>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -53,16 +66,17 @@
                                href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
                                 <div>
                                     {% if product.image %}
-                                            <img src="{{ 'images/products/' ~ product.image }}"
-                                                 alt="card-img-top"
-                                                 style="width: 100%; height: auto;">
+                                        <img src="{{ 'images/products/' ~ product.image }}"
+                                             alt="card-img-top"
+                                             style="width: 100%; height: auto;">
                                     {% else %}
                                         <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
                                              style="width: 100%; height: auto;">
                                     {% endif %}
                                 </div>
                                 <div class="color-card">
-                                    <h5 class="title-product-link p-3" title="{{ product.name }}">{{ product.name }}</h5>
+                                    <h5 class="title-product-link p-3"
+                                        title="{{ product.name }}">{{ product.name }}</h5>
                                     <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
                                 </div>
                             </a>
@@ -71,7 +85,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="pagination">
+        <div class="pagination justify-content-center">
             {{ knp_pagination_render(products) }}
         </div>
     </div>

@@ -5,7 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Users;
-use App\Form\UserType;
+use App\Form\UserInfosType;
 use App\Repository\OrdersRepository;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -20,6 +20,7 @@ class ProfilController extends AbstractController
      * @var UsersRepository
      */
     private $usersRepository;
+
     /**
      * @var OrdersRepository
      */
@@ -57,7 +58,7 @@ class ProfilController extends AbstractController
      */
     public function edit(Users $user, Request $request)
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserInfosType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -15,45 +15,39 @@
             </div>
         </div>
         <div class="row">
-
-            <nav class="search-nav">
-                <ul class="p-0">
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Huile</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Baume</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Cire</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Shampoing</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Accessoires</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="nav-link huile-link">Coffrets</a>
-                    </li>
-                    <li class="li-link">
-                        <a class="a-link nav-link dropdown-toggle huile-link {% if current_menu_brand is defined and current_menu_brand == 'brand' %}active{% endif %}"
-                           href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Marques
-                        </a>
-                        <div class="dropdown-menu security" aria-labelledby="navbarDropdownMenuLink">
-                            {% for brand in brands %}
-                                <a class="dropdown-item button" href="#">
-                                    <div>
-                                        <h5>{{ brand.name }}</h5>
-                                    </div>
-                                </a>
-                            {% endfor %}
+            <div class="col-12">
+                {{ form_start(form) }}
+                <div class="row search">
+                    <div class="col-md-3">
+                        {{ form_row(form.maxPrice) }}
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="label-style label-size input-group-text" id="product_search_category">Catégories</span>
+                            </div>
+                            <div class="col-9 p-0">
+                                {{ form_row(form.category) }}
+                            </div>
                         </div>
-                    </li>
-                </ul>
-            </nav>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="label-style label-size input-group-text" id="product_search_brand">Marques</span>
+                            </div>
+                            <div class="col-9 p-0">
+                                {{ form_row(form.brand) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1 p-0">
+                        <button class="btn button button-search">Rechercher</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+
+            </div>
         </div>
     </div>
     <div class="container mt-5 p-0">

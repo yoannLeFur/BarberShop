@@ -5,6 +5,10 @@ namespace App\Controller;
 
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
+use App\Entity\PropertySearch;
+use App\Form\ProductSearchType;
+use App\Form\PropertySearchType;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -45,17 +49,22 @@ class ProductController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $search = new ProductSearch();
+        $form = $this->createform(ProductSearchType::class, $search);
+        $form->handleRequest($request);
+
         $brands = $this->brandRepository->findAll();
 
         $products = $paginator->paginate(
-            $this->productRepository->findAll(),
+            $this->productRepository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1), 8
         );
         return $this->render('product/index.html.twig', [
             "current_menu" => 'products',
             "current_menu_brand" => 'brands',
             "brands" => $brands,
-            "products" => $products
+            "products" => $products,
+            'form' => $form->createView()
         ]);
     }
 

@@ -3,9 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -29,6 +32,38 @@ class ProductRepository extends ServiceEntityRepository
             ->orderBy("p.creation_date", 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param ProductSearch $search
+     * @return Query
+     */
+    public function findAllVisibleQuery(ProductSearch $search): Query {
+        $query = $this->createQueryBuilder('p');
+        if($search->getMaxPrice()) {
+            $query = $query
+                ->andWhere('p.price < :maxprice')
+                ->setParameter('maxprice', $search->getMaxPrice());
+        }
+        if($search->getCategory()->count() > 0) {
+            $k = 0;
+            foreach ($search->getCategory() as $brand) {
+                $k++;
+                $query = $query
+                    ->andWhere("p.category MEMBER OF :category$k")
+                    ->setParameter("category$k", $brand);
+            }
+        };
+        if($search->getBrand()->count() > 0) {
+            $k = 0;
+            foreach ($search->getBrand() as $brand) {
+                $k++;
+                $query = $query
+                    ->andWhere("p.brand MEMBER OF :brand$k")
+                    ->setParameter("brand$k", $brand);
+            }
+        };
+        return $query->getQuery();
     }
 
     // /**

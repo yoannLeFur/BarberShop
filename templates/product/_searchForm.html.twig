@@ -1,0 +1,32 @@
+<div class="col-12">
+    {{ form_start(form) }}
+    <div class="row search">
+        <div class="col-md-3">
+            {{ form_row(form.maxPrice) }}
+        </div>
+        <div class="col-md-4 p-0">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="label-style label-size input-group-text" id="product_search_category">Catégories</span>
+                </div>
+                <div class="col-9 p-0">
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-0">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="label-style label-size input-group-text" id="product_search_brand">Marques</span>
+                </div>
+                <div class="col-9 p-0">
+                    {{ form_row(form.brand) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 p-0">
+            <button class="btn button button-search">Rechercher</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

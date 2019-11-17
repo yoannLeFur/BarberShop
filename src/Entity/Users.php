@@ -33,12 +33,6 @@ class Users implements UserInterface, \Serializable
      */
     private $first_name;
 
-//    /**
-//     * @ORM\Column(type="string", length=64, unique=true)
-//     * @Assert\NotBlank()
-//     * @Assert\Email()
-//     */
-//    private $email;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
@@ -222,6 +216,13 @@ class Users implements UserInterface, \Serializable
     public function getRoles()
     {
         return $this->roles->getId() == 1 ? ['ROLE_USER']: ['ROLE_ADMIN'];
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**

@@ -8,7 +8,72 @@
         </div>
         <div class="container-admin col-10">
             <div class="container mt-4">
-                <h2>Accueil</h2>
+                <h2>Les commandes en attente</h2>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Référence</th>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>type de payment</th>
+                        <th>Prix total</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.reference }}</td>
+                            <td>{{ order.user.fullname }}</td>
+                            <td>{{ order.formattedDate }}</td>
+                            <td>{{ order.paymentMethod.name }}</td>
+                            <td>{{ order.formattefTotalPrice }}</td>
+                            <td>
+                                <a href="" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="" class="btn btn-dark button" title="facture de la commande"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="container mt-4">
+                <h2>Les derniers produits enregistrés</h2>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Produit</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td class="td-image"> {% if product.image %}
+                                    <img src="{{ '/images/products/' ~ product.image }}"
+                                         alt="card-img-top"
+                                         style="width: 30%; height: auto;">
+                                {% else %}
+                                    <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
+                                         style="width: 30%; height: auto;">
+                                {% endif %}
+                            </td>
+                            <td class="td-name align-middle">{{ product.name }}</td>
+                            <td class="td-options align-middle">
+                                <a href="{{ path('admin.product.edit',  {id: product.id }) }}" class="btn btn-dark button"
+                                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <form method="post" action="" style="display: inline-block" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce bien?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" >
+                                    <button class="btn btn-dark button" title="Supprimer"><i class="fa fa-trash"
+                                                                                             aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

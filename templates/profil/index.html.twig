@@ -52,21 +52,21 @@
             </tr>
             </thead>
             <tbody>
-{#            {% for order in orders %}#}
-{#                <tr>#}
-{#                    <td>{{ order.reference }}</td>#}
-{#                    <td>{{ order.user.fullname }}</td>#}
-{#                    <td>{{ order.formattedDate }}</td>#}
-{#                    <td>{{ order.paymentMethod.name }}</td>#}
-{#                    <td>{{ order.formattefTotalPrice }}</td>#}
-{#                    <td>#}
-{#                        <a href="" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye"#}
-{#                                                                                                aria-hidden="true"></i></a>#}
-{#                        <a href="" class="btn btn-dark button" title="facture de la commande"><i class="fa fa-download"#}
-{#                                                                                                 aria-hidden="true"></i></a>#}
-{#                    </td>#}
-{#                </tr>#}
-{#            {% endfor %}#}
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.user.fullname }}</td>
+                    <td>{{ order.formattedDate }}</td>
+                    <td>{{ order.paymentMethod.name }}</td>
+                    <td>{{ order.formattefTotalPrice }}</td>
+                    <td>
+                        <a href="" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye"
+                                                                                                aria-hidden="true"></i></a>
+                        <a href="" class="btn btn-dark button" title="facture de la commande"><i class="fa fa-download"
+                                                                                                 aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
 

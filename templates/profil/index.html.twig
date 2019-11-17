@@ -60,7 +60,7 @@
                     <td>{{ order.paymentMethod.name }}</td>
                     <td>{{ order.formattefTotalPrice }}</td>
                     <td>
-                        <a href="" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye"
+                        <a href="{{ path('order.show', {slug: order.slug, id: order.id}) }}" class="btn btn-dark button" title="détail de la commande"><i class="fa fa-eye"
                                                                                                 aria-hidden="true"></i></a>
                         <a href="" class="btn btn-dark button" title="facture de la commande"><i class="fa fa-download"
                                                                                                  aria-hidden="true"></i></a>

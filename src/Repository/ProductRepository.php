@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\ProductSearch;
 use App\Entity\Property;
@@ -26,7 +27,8 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Product[]
      */
-    public function findLatest(): array {
+    public function findLatest(): array
+    {
         return $this->createQueryBuilder('p')
             ->setMaxResults(4)
             ->orderBy("p.creation_date", 'DESC')
@@ -38,14 +40,15 @@ class ProductRepository extends ServiceEntityRepository
      * @param ProductSearch $search
      * @return Query
      */
-    public function findAllVisibleQuery(ProductSearch $search): Query {
+    public function findAllVisibleQuery(ProductSearch $search): Query
+    {
         $query = $this->createQueryBuilder('p');
-        if($search->getMaxPrice()) {
+        if ($search->getMaxPrice()) {
             $query = $query
                 ->andWhere('p.price < :maxprice')
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
-        if($search->getCategory()->count() > 0) {
+        if ($search->getCategory()->count() > 0) {
             $k = 0;
             foreach ($search->getCategory() as $brand) {
                 $k++;
@@ -54,13 +57,20 @@ class ProductRepository extends ServiceEntityRepository
                     ->setParameter("category$k", $brand);
             }
         };
-        if($search->getBrand()->count() > 0) {
+        if ($search->getBrand()->count() > 0) {
             $k = 0;
+            /** @var Brand $brand */
             foreach ($search->getBrand() as $brand) {
-                $k++;
+                if ($k === 0) {
+                    $query = $query
+                        ->where("':brand$k' MEMBER OF p.brand");
+                } else {
+                    $query = $query
+                        ->orWhere("':brand$k' MEMBER OF p.brand");
+                }
                 $query = $query
-                    ->andWhere("p.brand MEMBER OF :brand$k")
                     ->setParameter("brand$k", $brand);
+                $k++;
             }
         };
         return $query->getQuery();

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,12 @@ class Orders
     {
         return $this->reference;
     }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->reference);
+    }
+
 
     public function setReference(string $reference): self
     {

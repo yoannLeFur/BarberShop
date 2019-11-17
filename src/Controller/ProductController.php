@@ -6,9 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\ProductSearch;
-use App\Entity\PropertySearch;
 use App\Form\ProductSearchType;
-use App\Form\PropertySearchType;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;

@@ -53,6 +53,7 @@ class Users implements UserInterface, \Serializable
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles", inversedBy="users")
+     *
      */
     private $roles;
 
@@ -219,11 +220,11 @@ class Users implements UserInterface, \Serializable
     }
 
     public function setRoles($roles)
-    {
-        $this->roles = $roles;
+{
+    $this->roles = $roles;
 
-        return $this;
-    }
+    return $this;
+}
 
     /**
      * @return Collection|ForgotPassword[]

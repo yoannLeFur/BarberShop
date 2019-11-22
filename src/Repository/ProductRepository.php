@@ -5,8 +5,6 @@ namespace App\Repository;
 use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\ProductSearch;
-use App\Entity\Property;
-use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;

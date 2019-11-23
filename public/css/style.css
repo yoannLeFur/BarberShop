@@ -26,6 +26,7 @@ li,
 .title-product-link {
     font-size: 1.6rem;
 }
+
 h1 {
     font-size: 4rem;
 
@@ -179,27 +180,21 @@ h2, h3,
     margin: 0;
 }
 
-.title-product-link {
+.title-product-link{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     background-color: rgba(255, 255, 255, 0.4);
-    color: #000000;
     text-align: center;
     margin: 0;
 }
 
-
-/* products */
-.card-body-product {
-    transform: scale(1);
-    transition: all 0.3s;
+.title-product-link a {
+    color: #000000;
 }
 
-.card-body-product:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
-    border: 1px solid rgba(0,0,0,.125);
+.title-product-link:hover a{
+    color: #c45c45;
 }
 
 
@@ -323,23 +318,36 @@ table td {
     cursor: pointer;
 }
 
-
+.basket-hover {
+    position: relative;
+    line-height: 35px;
+    height: 35px;
+    padding: 0 20px;
+    background: #444444;
+    color: #fff;
+    font-size: 12px;
+    border: 0;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.card-body-product {
+    position: relative;
+}
 .card-body-product .button-basket {
     display: none;
     background-color: #222222;
     color: #ffffff;
     text-align: center;
     padding: 5px 0;
-    transition: all 1s;
-
 }
 
 .card-body-product:hover .button-basket {
     display: block;
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 216px;
     left: 0;
     right:0;
-    bottom:0;
+    bottom:83px;
 }
 

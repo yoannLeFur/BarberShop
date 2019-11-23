@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-5">
+    <div class="container mt-5 ">
+        <div class="row py-5">
+            <div class="col-5 pt-5">
                 {% if product.image %}
                     <img src="{{ '/images/products/' ~ product.image }}"
                          alt="card-img-top"
@@ -13,28 +13,19 @@
                          style="width: 100%; height: auto;">
                 {% endif %}
             </div>
-            <div class="col-7">
-                <h5 id="title-product">{{ product.name }}</h5>
-                <p id="price-product">{{ product.formatedPrice }} €</p>
-                <p id="description-product">{{ product.description }}</p>
+            <div class="col-7 pt-5">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="remove input-group-text px-4" id="inputGroup-sizing-default"><i
-                                            class="fa fa-minus"></i></span>
-                            </div>
-                            <input type="number" min="0" id="quantite" class="form-control col-5 number-input px-4"
-                                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            <div class="input-group-append">
-                                <span class="input-group-text px-4" id="add"><i
-                                            class="fa fa-plus"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <button class="btn btn-primary button">Ajouter</button>
-                    </div>
+                    <h5 id="title-product">{{ product.name }}</h5>
+                </div>
+                <div class="row">
+                    <p id="price-product" class="text-left">{{ product.formatedPrice }} €</p>
+                </div>
+                <div class="row py-5">
+                    <p id="description-product">{{ product.description }}</p>
+                </div>
+                <div class="row ">
+                    <a href="{{ path('basket.add', {'id': product.id}) }}" class="btn btn-dark button"
+                       title="Ajouter au panier">Ajouter au panier</a>
                 </div>
             </div>
 

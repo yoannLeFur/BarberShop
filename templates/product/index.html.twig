@@ -18,7 +18,7 @@
             {% include 'product/_searchForm.html.twig' %}
         </div>
     </div>
-    <div class="container mt-5 p-0">
+    <div class="container mt-5">
         <div class="row">
             {% for product in products %}
                 <div class="col-md-3">
@@ -35,11 +35,11 @@
                                         <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
                                              style="width: 100%; height: auto;">
                                     {% endif %}
-                                    <a href="{{ path('basket.index') }}" class="button-basket" title="Ajouter au panier">Ajouter au panier</a>
+                                    <a href="{{ path('basket.add', {'id': product.id}) }}" class="button-basket" title="Ajouter au panier">Ajouter au panier</a>
                                 </div>
                                 <div class="color-card">
                                     <h5 class="title-product-link p-3"
-                                        title="{{ product.name }}">{{ product.name }}</h5>
+                                        title="{{ product.name }}"><a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
                                     <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
                                 </div>
                             </a>

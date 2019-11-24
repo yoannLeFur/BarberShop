@@ -3,7 +3,16 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h2>Mon Panier</h2>
+        <div class="row title-row">
+            <div class="offset-4 col-4">
+                <h3>Mon Panier</h3>
+            </div>
+            {% if items | length > 0 %}
+            <div class="col-4 text-right">
+                <a href="" class="btn btn-success button" title="Valider le panier">Valider le panier</a>
+            </div>
+            {% endif %}
+        </div>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -38,14 +47,20 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3" class="text-right">Total:</td>
+                <td colspan="3" class="text-right">Total</td>
                 <td> {{ total }} €</td>
                 <td></td>
             </tr>
             </tfoot>
         </table>
+        <div class="row py-3">
+            <div class="col-12 text-right">
+                <a href="" class="btn btn-success button" title="Valider le panier">Valider le panier</a>
+            </div>
+        </div>
         {% else %}
             <p>Votre panier est vide !</p>
         {% endif %}
     </div>
+
 {% endblock %}

@@ -10,6 +10,7 @@ use App\Form\ImageType;
 use App\Form\ProductType;
 use App\Repository\ImagesRepository;
 use App\Repository\ProductRepository;
+use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,10 +40,12 @@ class AdminImageController extends AbstractController
      * @Route("/admin/image", name="admin.image.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(BasketService $basketService)
     {
         return $this->render('admin/images/index.html.twig', [
             "current_menu" => 'images-admin',
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
         ]);
     }
 
@@ -52,7 +55,7 @@ class AdminImageController extends AbstractController
      * @param FileUploader $fileUploader
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, FileUploader $fileUploader)
+    public function new(Request $request, FileUploader $fileUploader, BasketService $basketService)
     {
         $images = new Images();
         $form = $this->createForm(ImageType::class, $images);
@@ -74,6 +77,8 @@ class AdminImageController extends AbstractController
         return $this->render('admin/images/new.html.twig', [
             "current_menu" => 'products-admin',
             'product' => $images,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }
@@ -83,7 +88,7 @@ class AdminImageController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Product $product, Request $request)
+    public function edit(Product $product, Request $request, BasketService $basketService)
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -98,6 +103,8 @@ class AdminImageController extends AbstractController
         return $this->render('admin/product/edit.html.twig', [
             "current_menu" => 'products-admin',
             'product' => $product,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }

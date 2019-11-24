@@ -8,6 +8,7 @@ use App\Entity\Users;
 use App\Form\UserInfosType;
 use App\Repository\OrdersRepository;
 use App\Repository\UsersRepository;
+use App\Service\Basket\BasketService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +43,7 @@ class ProfilController extends AbstractController
      * @Route(path="/profil", name="profil.index")
      * @return Response
      */
-    public function index(): Response
+    public function index(BasketService $basketService): Response
     {
         $this->getUser()->getId();
         $orders = $this->orderRepository->findAll();
@@ -50,6 +51,8 @@ class ProfilController extends AbstractController
             "current_menu" => 'user',
             'user' => $this->getUser(),
             'orders' => $orders,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
         ]);
     }
 
@@ -58,7 +61,7 @@ class ProfilController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Users $user, Request $request)
+    public function edit(Users $user, Request $request, BasketService $basketService)
     {
         $form = $this->createForm(UserInfosType::class, $user);
         $form->handleRequest($request);
@@ -72,6 +75,8 @@ class ProfilController extends AbstractController
         return $this->render('profil/edit.html.twig', [
             "current_menu" => 'user',
             'user' => $user,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }

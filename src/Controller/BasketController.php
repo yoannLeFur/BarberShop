@@ -33,15 +33,41 @@ class BasketController extends AbstractController
     public function add($id, BasketService $basketService)
     {
         $basketService->add($id);
+        $this->addFlash('success', 'Le produit a été ajouté au panier avec succès');
+        return $this->redirectToRoute("product.index");
+    }
+
+    /**
+     * @Route("/panier/addQuantity/{id}", name="basket.addQuantity")
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addQuantity($id, BasketService $basketService)
+    {
+        $basketService->add($id);
+        $this->addFlash('success', 'La quantié du produit a été modifiée au panier avec succès');
+        return $this->redirectToRoute("basket.index");
+    }
+
+
+    /**
+     * @Route("/panier/remove/{id}", name="basket.remove")
+     */
+    public function remove($id, BasketService $basketService)
+    {
+        $basketService->remove($id);
+        $this->addFlash('danger', 'La quantié du produit a été modifiée au panier avec succès');
         return $this->redirectToRoute("basket.index");
     }
 
     /**
      * @Route("/panier/delete/{id}", name="basket.delete")
      */
-    public function remove($id, BasketService $basketService)
+    public function delete($id, BasketService $basketService)
     {
-        $basketService->remove($id);
+        $basketService->delete($id);
+        $this->addFlash('danger', 'Le produit a été supprimer du panier avec succès');
         return $this->redirectToRoute("basket.index");
     }
 }

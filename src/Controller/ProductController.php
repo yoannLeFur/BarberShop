@@ -9,6 +9,7 @@ use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
+use App\Service\Basket\BasketService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +46,7 @@ class ProductController extends AbstractController
      * @Route(path="/boutique", name="product.index")
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator, BasketService $basketService): Response
     {
         $search = new ProductSearch();
         $form = $this->createform(ProductSearchType::class, $search);
@@ -62,6 +63,8 @@ class ProductController extends AbstractController
             "current_menu_brand" => 'brands',
             "brands" => $brands,
             "products" => $products,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }
@@ -71,7 +74,7 @@ class ProductController extends AbstractController
      * @param Product $product
      * @return Response
      */
-    public function show(Product $product, string $slug): Response
+    public function show(Product $product, string $slug, BasketService $basketService): Response
     {
 
         if($product->getSlug() !== $slug) {
@@ -82,6 +85,8 @@ class ProductController extends AbstractController
         }
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             "current_menu" => "products"
         ]);
     }

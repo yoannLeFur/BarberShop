@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Brand;
 use App\Form\BrandType;
 use App\Repository\BrandRepository;
+use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +37,13 @@ class AdminBrandController extends AbstractController
      * @Route("/admin/brand", name="admin.brand.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(BasketService $basketService)
     {
         $brands = $this->brandRepository->findAll();
         return $this->render('admin/brand/index.html.twig', [
             "current_menu" => 'brands',
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'brands' => $brands
         ]);
     }
@@ -51,7 +54,7 @@ class AdminBrandController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, FileUploader $fileUploader)
+    public function new(Request $request, FileUploader $fileUploader, BasketService $basketService)
     {
         $brand = new Brand();
         $form = $this->createForm(BrandType::class, $brand);
@@ -72,6 +75,8 @@ class AdminBrandController extends AbstractController
         return $this->render('admin/brand/new.html.twig', [
             "current_menu" => 'brands',
             'brand' => $brand,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }
@@ -82,7 +87,7 @@ class AdminBrandController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Brand $brand, Request $request, FileUploader $fileUploader)
+    public function edit(Brand $brand, Request $request, FileUploader $fileUploader, BasketService $basketService )
     {
         $form = $this->createForm(BrandType::class, $brand);
         $form->handleRequest($request);
@@ -101,6 +106,8 @@ class AdminBrandController extends AbstractController
         return $this->render('admin/brand/edit.html.twig', [
             "current_menu" => 'brands',
             'brand' => $brand,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }

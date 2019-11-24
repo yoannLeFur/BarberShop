@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\ProductCategory;
 use App\Form\ProductCategoryType;
 use App\Repository\ProductCategoryRepository;
+use App\Service\Basket\BasketService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,11 +36,13 @@ class AdminProductCategoryController extends AbstractController
      * @Route("/admin/category", name="admin.category.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(BasketService $basketService)
     {
         $categories = $this->categoryRepository->findAll();
         return $this->render('admin/category/index.html.twig', [
             "current_menu" => 'categories',
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'categories' => $categories
         ]);
     }
@@ -50,7 +53,7 @@ class AdminProductCategoryController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request, BasketService $basketService)
     {
         $category = new ProductCategory();
         $form = $this->createForm(ProductCategoryType::class, $category);
@@ -66,6 +69,8 @@ class AdminProductCategoryController extends AbstractController
         return $this->render('admin/category/new.html.twig', [
             "current_menu" => 'categories',
             'category' => $category,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }
@@ -76,7 +81,7 @@ class AdminProductCategoryController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(ProductCategory $category, Request $request)
+    public function edit(ProductCategory $category, Request $request, BasketService $basketService)
     {
         $form = $this->createForm(ProductCategoryType::class, $category);
         $form->handleRequest($request);
@@ -90,6 +95,8 @@ class AdminProductCategoryController extends AbstractController
         return $this->render('admin/category/edit.html.twig', [
             "current_menu" => 'categories',
             'category' => $category,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }

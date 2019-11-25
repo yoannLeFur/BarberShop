@@ -70,4 +70,17 @@ class BasketController extends AbstractController
         $this->addFlash('danger', 'Le produit a été supprimer du panier avec succès');
         return $this->redirectToRoute("basket.index");
     }
+
+
+    /**
+     * @Route("/panier/livraison", name="basket.livraison")
+     */
+    public function livraison(BasketService $basketService)
+    {
+        return $this->render('basket/livraison.html.twig', [
+            'user' => $this->getUser(),
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal()
+        ]);
+    }
 }

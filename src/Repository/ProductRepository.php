@@ -41,36 +41,35 @@ class ProductRepository extends ServiceEntityRepository
     public function findAllVisibleQuery(ProductSearch $search): Query
     {
         $query = $this->createQueryBuilder('p');
+        if ($search->getBrand()->count() > 0) {
+            $k = 0;
+            /** @var Brand $brand */
+            foreach ($search->getBrand() as $brand) {
+                $k++;
+                $alias = $this->randomString(4);
+                $query = $query
+                    ->join("p.brand", $alias)
+                    ->orWhere("$alias.id = :brand$k")
+                    ->setParameter("brand$k", $brand);
+            }
+        };
+        if ($search->getCategory()->count() > 0) {
+            $k = 0;
+            foreach ($search->getCategory() as $category) {
+                $k++;
+                $alias = $this->randomString(4);
+                $query = $query
+                    ->join("p.category", $alias)
+                    ->orWhere("$alias.id = :category$k")
+                    ->setParameter("category$k", $category);
+            }
+        };
         if ($search->getMaxPrice()) {
             $query = $query
                 ->andWhere('p.price < :maxprice')
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
-        if ($search->getCategory()->count() > 0) {
-            $k = 0;
-            foreach ($search->getCategory() as $brand) {
-                $k++;
-                $query = $query
-                    ->andWhere("p.category MEMBER OF :category$k")
-                    ->setParameter("category$k", $brand);
-            }
-        };
-        if ($search->getBrand()->count() > 0) {
-            $k = 0;
-            /** @var Brand $brand */
-            foreach ($search->getBrand() as $brand) {
-                if ($k === 0) {
-                    $query = $query
-                        ->where("':brand$k' MEMBER OF p.brand");
-                } else {
-                    $query = $query
-                        ->orWhere("':brand$k' MEMBER OF p.brand");
-                }
-                $query = $query
-                    ->setParameter("brand$k", $brand);
-                $k++;
-            }
-        };
+        dump($query->getQuery());
         return $query->getQuery();
     }
 
@@ -102,4 +101,10 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**  * Get a random string  *  * @param int $length * @return bool|string */
+    function randomString(int $length)
+    {
+        return substr(str_shuffle(str_repeat($x = 'abcdefghijklmnopqrstuvwxyz', ceil($length / strlen($x)))), 1, $length);
+    }
 }

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title 'livraison' %}
+
+{% block body %}
+    <div class="container mt-4">
+
+        <div class="row title-row">
+            <div class="offset-4 col-4">
+                <h3>Livraison</h3>
+            </div>
+            <div class="col-4 text-right">
+                <a href="" class="btn btn-success button" title="Payment">Payment</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-center font-weight-bold">Adresse de livraison</h4>
+                        <p class="card-text">Nom : {{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text">Email : {{ user.username }}</p>
+                        <p class="card-text">Mobile : {{ user.mobile }}</p>
+                        <p class="card-text">Adresse : {{ user.address }}</p>
+                        <p class="card-text">Ville : {{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text">Pays : {{ user.country }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-center font-weight-bold">Adresse de facturation</h4>
+                        <p class="card-text">Nom : {{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text">Email : {{ user.username }}</p>
+                        <p class="card-text">Mobile : {{ user.mobile }}</p>
+                        <p class="card-text">Adresse : {{ user.address }}</p>
+                        <p class="card-text">Ville : {{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text">Pays : {{ user.country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col-12 text-right">
+                <a href="" class="btn btn-success button" title="Payment">Payment</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

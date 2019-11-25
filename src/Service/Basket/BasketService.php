@@ -38,6 +38,19 @@ class BasketService {
     {
         $panier = $this->session->get('panier', []);
 
+        if(!empty($panier[$id] > 1)) {
+            $panier[$id]--;
+        } else if(!empty($panier[$id] = 1)) {
+            unset($panier[$id]);
+        }
+
+        $this->session->set('panier', $panier);
+    }
+
+    public function delete(int $id)
+    {
+        $panier = $this->session->get('panier', []);
+
         if(!empty($panier[$id])) {
             unset($panier[$id]);
         }

@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,12 +37,14 @@ class AdminProductController extends AbstractController
      * @Route("/admin/product", name="admin.product.index")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(BasketService $basketService)
     {
         $products = $this->productRepository->findAll();
 
         return $this->render('admin/product/index.html.twig', [
             "current_menu" => 'products-admin',
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             "products" => $products
         ]);
     }
@@ -51,7 +54,7 @@ class AdminProductController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, FileUploader $fileUploader)
+    public function new(Request $request, FileUploader $fileUploader, BasketService $basketService)
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -72,6 +75,8 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/new.html.twig', [
             "current_menu" => 'products-admin',
             'product' => $product,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }
@@ -81,7 +86,7 @@ class AdminProductController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Product $product, Request $request, FileUploader $fileUploader)
+    public function edit(Product $product, Request $request, FileUploader $fileUploader, BasketService $basketService)
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -100,6 +105,8 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/edit.html.twig', [
             "current_menu" => 'products-admin',
             'product' => $product,
+            'items' => $basketService->getFullCart(),
+            'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
     }

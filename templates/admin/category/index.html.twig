@@ -2,18 +2,20 @@
 {% block title 'Les categories' %}
 {% block body %}
     <div class="row m-0">
-        <div class="menu-admin col-2">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
             {{ include('layout/sidebar.html.twig') }}
         </div>
-        <div class="container-admin col-10">
+        <div class="container-admin col-lg-10 col-12">
             <div class="container mt-4">
-                <div class="row title-row">
-                    <div class="col-3">
-                        <a href="{{ path('admin.category.new') }}" class="btn btn-outline-success button col-2" title="Ajouter"><i
-                                    class="fa fa-plus" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="col-6">
-                        <h3>Gestion des catégories</h3>
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col-3 text-left">
+                            <a href="{{ path('admin.category.new') }}" class="btn btn-icon btn-outline-success"
+                               title="Ajouter"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-6">
+                            <h3>Gestion des catégories</h3>
+                        </div>
                     </div>
                 </div>
 
@@ -27,23 +29,28 @@
                     <thead>
                     <tr>
                         <th>name</th>
-                        <th>Actions</th>
+                        <th colspan="2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for category in categories %}
                         <tr>
-                            <td>{{ category.name }}</td>
-                            <td>
-                                <a href="{{ path('admin.category.edit',  {id: category.id }) }}" class="btn btn-dark button"
-                                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                <form method="post" action="{{   path('admin.category.delete', {id: category.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catégorie?')">
+                            <td class="td-name align-middle">{{ category.name }}</td>
+                            <td class="td-options align-middle">
+                                <a href="{{ path('admin.category.edit',  {id: category.id }) }}"
+                                   class="btn btn-dark btn-icon"
+                                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td class="td-options align-middle">
+                                <form method="post" action="{{ path('admin.category.delete', {id: category.id}) }}"
+                                      onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catégorie?')">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
-                                    <button class="btn btn-dark button" title="Supprimer"><i class="fa fa-trash"
-                                                                                             aria-hidden="true"></i></button>
+                                    <button class="btn btn-dark btn-icon" title="Supprimer"><i class="fa fa-trash"
+                                                                                             aria-hidden="true"></i>
+                                    </button>
                                 </form>
-                            </td>
                             </td>
                         </tr>
                     {% endfor %}

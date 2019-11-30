@@ -31,13 +31,13 @@ class ProductType  extends AbstractType
                 'required' => false,
             ])
             ->add('category', EntityType::class, [
-                'placeholder' => 'choisir une catégorie',
                 'class' => ProductCategory::class,
                 'required' => false,
                 'choice_label' => 'name',
+                'attr' => ['data-select' => 'false', 'data-placeholder' => 'Choisir une catégorie']
             ])
             ->add('brand', EntityType::class, [
-                'placeholder' => 'Choisir une marque',
+                'attr' => ['data-select' => 'false', 'data-placeholder' => 'Choisir une marque'],
                 'class' => Brand::class,
                 'required' => false,
                 'choice_label' => 'name',

@@ -3,20 +3,20 @@
 
 {% block body %}
     <div class="row m-0">
-        <div class="menu-admin col-2">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
             {{ include('layout/sidebar.html.twig') }}
         </div>
-        <div class="container-admin col-10">
+        <div class="container-admin col-lg-10 col-12">
             <div class="container mt-4">
                 <h2>Nouvelle catégorie</h2>
 
                 {{ form_start(form) }}
                 <div class="row">
-                    <div class="offset-3 col-md-6">{{ form_row(form.name) }}</div>
+                    <div class="offset-lg-3 col-lg-6 offset-md-1 col-md-10">{{ form_row(form.name) }}</div>
                 </div>
                 {{ form_widget(form) }}
                 <div class="text-center">
-                    <button class="btn btn-primary button">{{ button|default('Enregistrer') }}</button>
+                    <button class="btn btn-primary btn-lg">{{ button|default('Enregistrer') }}</button>
                 </div
                 {{ form_end(form) }}
             </div>

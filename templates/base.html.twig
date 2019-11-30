@@ -11,8 +11,13 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+<div class="pb-4">
 {{ include('layout/header-nav.html.twig') }}
-{% block body %}{% endblock %}
+</div>
+<div class="mt-5">
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}
 <script src="/js/Basket.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -24,10 +29,11 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-<script>
-    $('select').select2();
-</script>
-{% block javascripts %}{% endblock %}
+    <script>
+        $('select').select2({
+            placeholder: $('select[data-select="true"]').attr("data-placeholder")
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

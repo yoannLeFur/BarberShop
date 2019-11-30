@@ -2,21 +2,17 @@
 {% block title 'Les categories' %}
 {% block body %}
     <div class="row m-0">
-        <div class="menu-admin col-2">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
             {{ include('layout/sidebar.html.twig') }}
         </div>
-        <div class="container-admin col-10">
+        <div class="container-admin col-lg-10 col-12">
             <div class="container mt-4">
-                <div class="row title-row">
-                    <div class="col-12">
-                        <h3>Gestion des Images</h3>
-                    </div>
-                </div>
-                <a href="{{ path('admin.images.new') }}" class="btn btn-outline-success button col-2" title="Ajouter"><i
-                            class="fa fa-plus" aria-hidden="true"></i></a>
+                <h2>Gestion des Images</h2>
 
+                <a href="{{ path('admin.images.new') }}" class="btn btn-outline-success btn-icon " title="Ajouter"><i
+                            class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
-</div>
+    </div>
 {% endblock %}

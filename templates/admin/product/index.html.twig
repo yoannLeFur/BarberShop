@@ -2,18 +2,20 @@
 {% block title 'Les produits' %}
 {% block body %}
     <div class="row m-0">
-        <div class="menu-admin col-2">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
             {{ include('layout/sidebar.html.twig') }}
         </div>
-        <div class="container-admin col-10">
+        <div class="container-admin col-lg-10 col-12">
             <div class="container mt-4">
-                <div class="row title-row">
-                    <div class="col-3">
-                        <a href="{{ path('admin.product.new') }}" class="btn btn-outline-success button col-2" title="Ajouter"><i
-                                    class="fa fa-plus" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="col-6">
-                        <h3>Gestion des produits</h3>
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col-2 text-left">
+                            <a href="{{ path('admin.product.new') }}" class="btn btn-icon btn-outline-success"
+                               title="Ajouter"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-6">
+                            <h3>Gestion des produits</h3>
+                        </div>
                     </div>
                 </div>
 
@@ -28,35 +30,42 @@
                     <tr>
                         <th>Image</th>
                         <th>Produit</th>
-                        <th>Actions</th>
+                        <th colspan="2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for product in products %}
-                        <tr>
-                            <td class="td-image"> {% if product.image %}
-                                    <img src="{{ '/images/products/' ~ product.image }}"
-                                         alt="card-img-top"
-                                         style="width: 30%; height: auto;">
-                                {% else %}
-                                    <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
-                                         style="width: 30%; height: auto;">
-                                {% endif %}
-                            </td>
-                            <td class="td-name align-middle">{{ product.name }}</td>
-                            <td class="td-options align-middle">
-                                <a href="{{ path('admin.product.edit',  {id: product.id }) }}" class="btn btn-dark button"
-                                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                <form method="post" action="" style="display: inline-block" onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce bien?')">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="">
-                                    <button class="btn btn-dark button" title="Supprimer"><i class="fa fa-trash"
-                                                                                             aria-hidden="true"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    <tr>
+                        <td class="td-image">
+                            {% if product.image %}
+                                <img src="{{ '/images/products/' ~ product.image }}"
+                                     alt="card-img-top"
+                                     style="width: 100px; height: auto;">
+                            {% else %}
+                                <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
+                                     style="width: 100px; height: auto;">
+                            {% endif %}
+                        </td>
+                        <td class="td-name align-middle">{{ product.name }}</td>
+                        <td class="td-options align-middle">
+                            <a href="{{ path('admin.product.edit',  {id: product.id }) }}"
+                               class="btn btn-icon btn-dark"
+                               title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td class="td-options align-middle">
+                            <form method="post" action=""
+                                  onsubmit="return confirm('Etes-vous sur de vouloir supprimer ce bien?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="">
+                                <button class="btn btn-dark btn-icon" title="Supprimer"><i class="fa fa-trash"
+                                                                                         aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                     </tbody>
+                    {% endfor %}
                 </table>
             </div>
         </div>

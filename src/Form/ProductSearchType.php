@@ -28,14 +28,16 @@ class ProductSearchType extends AbstractType
                 'label'    => false,
                 'class'    => ProductCategory::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'attr' => ['data-select' => 'true', 'data-placeholder' => 'Catégories']
             ])
             ->add('brand', EntityType::class, [
                 'required' => false,
                 'label'    => false,
                 'class'    => Brand::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'attr' => ['data-select' => 'true', 'data-placeholder' => 'Marques']
             ])
         ;
     }

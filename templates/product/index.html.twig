@@ -4,13 +4,13 @@
 {% block body %}
     <div class="color-jumbotron-home jumbotron text-center text-white rounded-0">
         <div class="row">
-            <div class="col-4">
+            <div class=" col-lg-4 col-12">
                 <img class="logo-img" src="/images/logo.jpg">
             </div>
-            <div class="col-4 py-5">
+            <div class="col-lg-4 col-12 py-5">
                 <h1 class="title-h1">La boutique du barbier</h1>
             </div>
-            <div class="col-4">
+            <div class="d-lg-block col-lg-4 d-none">
                 <img class="logo-img" src="/images/logo.jpg">
             </div>
         </div>
@@ -28,7 +28,7 @@
 
         <div class="row">
             {% for product in products %}
-                <div class="col-md-3">
+                <div class="offset-xl-0 col-xl-3 offset-lg-0 col-lg-3 offset-md-0 col-md-4 offset-sm-0 col-sm-6 offset-2 col-8">
                     <div class="card my-3">
                         <div class="card-body card-body-product p-0">
                             <a class="product-link"
@@ -42,11 +42,16 @@
                                         <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
                                              style="width: 100%; height: auto;">
                                     {% endif %}
-                                    <a href="{{ path('basket.add', {'id': product.id}) }}" class="button-basket" title="Ajouter au panier">Ajouter au panier</a>
+                                </div>
+                                <div class="button-basket">
+                                    <a href="{{ path('basket.add', {'id': product.id}) }}"
+                                       title="Ajouter au panier">Ajouter au panier</a>
                                 </div>
                                 <div class="color-card">
-                                    <h5 class="title-product-link p-3"
-                                        title="{{ product.name }}"><a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a></h5>
+                                    <h4 class="title-product-link p-3"
+                                        title="{{ product.name }}"><a
+                                                href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a>
+                                    </h4>
                                     <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
                                 </div>
                             </a>

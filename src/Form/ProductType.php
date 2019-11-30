@@ -29,6 +29,7 @@ class ProductType  extends AbstractType
                 'label' => 'Image (jpg, jpeg)',
                 'data_class' => null,
                 'required' => false,
+
             ])
             ->add('category', EntityType::class, [
                 'class' => ProductCategory::class,

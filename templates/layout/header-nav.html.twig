@@ -27,7 +27,7 @@
                 </li>
             {% endif %}
             {% if app.user %}
-                <li class="nav-item dropdown offset-lg-3 col-lg-3 col-md-12 p-0">
+                <li class="nav-item dropdown col-lg-3 col-md-12 p-0">
                     <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'basket' %}active{% endif %}"
                        href="#" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -93,7 +93,7 @@
                         {% endif %}
                     </div>
                 </li>
-                <li class="nav-item dropdown offset-lg-0 col-lg-3 offset-md-2 col-md-8  p-0">
+                <li class="nav-item dropdown offset-lg-3 col-lg-3 offset-md-2 col-md-8  p-0">
                     <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
                        href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,7 +108,7 @@
                     </div>
                 </li>
                 {% if app.user.roles == ['ROLE_ADMIN'] %}
-                    <li class="nav-item dropdown offset-lg-0 col-lg-3 offset-md-2 col-md-8 p-0">
+                    <li class="nav-item dropdown d-lg-none offset-md-2 col-md-8 d-md-block p-0">
                         <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
                            href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

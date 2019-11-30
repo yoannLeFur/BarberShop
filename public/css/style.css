@@ -68,6 +68,12 @@ a:hover {
     text-decoration: none;
 }
 
+.style-price {
+    color: #c45c45;
+    font-size: 30px;
+    font-weight: bold;
+}
+
 .title-row {
     border-bottom: 2px solid #696969;
     padding: 2rem 0;
@@ -143,6 +149,10 @@ admin
  */
 
 .menu-admin {
+    position: fixed;
+    top: 48px;
+    bottom: 0;
+    left: 0;
     background-color: #000000;
     padding: 0;
 }
@@ -220,4 +230,16 @@ form {
 
 .select2 {
     width:100%!important;
+}
+
+.select2-container--default .select2-selection--single {
+    padding: 18.75px 0;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    position: relative;
+    top: -12px;
+}
+
+.select2-selection__arrow {
+    top: 8px!important;
 }

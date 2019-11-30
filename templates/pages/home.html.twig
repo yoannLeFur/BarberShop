@@ -42,10 +42,12 @@
                                              style="width: 100%; height: auto;">
                                     {% endif %}
                                 </div>
+                                {% if app.user %}
                                 <div class="button-basket">
                                     <a href="{{ path('basket.add', {'id': product.id}) }}"
                                        title="Ajouter au panier">Ajouter au panier</a>
                                 </div>
+                                {% endif %}
                                 <div class="color-card">
                                     <h4 class="title-product-link p-3"
                                         title="{{ product.name }}"><a

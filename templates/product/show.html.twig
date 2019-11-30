@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5 ">
-        <div class="row py-5">
-            <div class="col-5 pt-5">
+    <div class="color-jumbotron-home jumbotron text-center text-white rounded-0 p-0">
+        <div class="row m-0">
+            <div class="col-lg-4 col-12">
+                <img class="logo-img" src="/images/logo.jpg">
+            </div>
+            <div class="col-lg-4 col-12 py-5">
+                <h1 class="title-h1">BarberShop</h1>
+                <p class="description">Lorem Ipsum color sit amet</p>
+            </div>
+            <div class="d-lg-block col-lg-4 d-none">
+                <img class="logo-img" src="/images/logo.jpg">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row pt-5">
+            <div class="offset-md-0 col-md-5 offset-2 col-8 pt-5">
                 {% if product.image %}
                     <img src="{{ '/images/products/' ~ product.image }}"
                          alt="card-img-top"
@@ -13,20 +27,22 @@
                          style="width: 100%; height: auto;">
                 {% endif %}
             </div>
-            <div class="col-7 pt-5">
+            <div class="offset-md-0 col-md-7 offset-1 col-10 pt-5">
                 <div class="row">
-                    <h5 id="title-product">{{ product.name }}</h5>
+                    <h3>{{ product.name }}</h3>
                 </div>
                 <div class="row">
-                    <p id="price-product" class="text-left">{{ product.formatedPrice }} €</p>
+                    <p class="style-price text-left">{{ product.formatedPrice }} €</p>
                 </div>
                 <div class="row py-5">
-                    <p id="description-product">{{ product.description }}</p>
+                    <p>{{ product.description }}</p>
                 </div>
+                {% if app.user %}
                 <div class="row ">
-                    <a href="{{ path('basket.add', {'id': product.id}) }}" class="btn btn-dark button"
+                    <a href="{{ path('basket.add', {'id': product.id}) }}" class="btn btn-dark btn-lg"
                        title="Ajouter au panier">Ajouter au panier</a>
                 </div>
+                {% endif %}
             </div>
 
         </div>

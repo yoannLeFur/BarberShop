@@ -52,8 +52,6 @@ class ProductController extends AbstractController
         $form = $this->createform(ProductSearchType::class, $search);
         $form->handleRequest($request);
 
-        $brands = $this->brandRepository->findAll();
-
         $products = $paginator->paginate(
             $this->productRepository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1), 8
@@ -61,7 +59,6 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig', [
             "current_menu" => 'products',
             "current_menu_brand" => 'brands',
-            "brands" => $brands,
             "products" => $products,
             'items' => $basketService->getFullCart(),
             'total' => $basketService->getTotal(),

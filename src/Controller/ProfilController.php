@@ -27,16 +27,11 @@ class ProfilController extends AbstractController
      */
     private $orderRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
 
-    public function __construct(UsersRepository $usersRepository, OrdersRepository $orderRepository, ObjectManager $em)
+    public function __construct(UsersRepository $usersRepository, OrdersRepository $orderRepository)
     {
         $this->usersRepository = $usersRepository;
         $this->orderRepository = $orderRepository;
-        $this->em = $em;
     }
 
     /**
@@ -67,7 +62,8 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
             $this->addFlash('success', 'votre profil a été modifié avec succès');
             return $this->redirectToRoute('profil.index');
         }

@@ -8,7 +8,6 @@ use App\Form\BrandType;
 use App\Repository\BrandRepository;
 use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +20,9 @@ class AdminBrandController extends AbstractController
      */
     private $brandRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    public function __construct(BrandRepository $brandRepository, ObjectManager $em)
+    public function __construct(BrandRepository $brandRepository)
     {
         $this->brandRepository = $brandRepository;
-        $this->em = $em;
     }
 
 
@@ -61,13 +54,14 @@ class AdminBrandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $brandFile = $form['image']->getData();
             if ($brandFile) {
                 $brandFileName = $fileUploader->upload($brandFile);
                 $brand->setImage($brandFileName);
             }
-            $this->em->persist($brand);
-            $this->em->flush();
+            $em->persist($brand);
+            $em->flush();
             $this->addFlash('success', 'La nouvelle marque a été crée avec succès');
             return $this->redirectToRoute('admin.brand.index');
         }
@@ -93,12 +87,13 @@ class AdminBrandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $brandFile = $form['image']->getData();
             if ($brandFile) {
                 $brandFileName = $fileUploader->upload($brandFile);
                 $brand->setImage($brandFileName);
             }
-            $this->em->flush();
+            $em->flush();
             $this->addFlash('success', 'La marque a été modifiée avec succès');
             return $this->redirectToRoute('admin.brand.index');
         }
@@ -121,8 +116,9 @@ class AdminBrandController extends AbstractController
     public function delete(Brand $brand, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $brand->getId(), $request->get('_token'))) {
-            $this->em->remove($brand);
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($brand);
+            $em->flush();
             $this->addFlash('success', 'Cette marque a bien été supprimée');
             return $this->redirectToRoute('admin.brand.index');
         }

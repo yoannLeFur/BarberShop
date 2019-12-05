@@ -20,15 +20,9 @@ class AdminUsersController extends AbstractController
      */
     private $usersRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    public function __construct(UsersRepository $usersRepository, ObjectManager $em)
+    public function __construct(UsersRepository $usersRepository)
     {
         $this->usersRepository = $usersRepository;
-        $this->em = $em;
     }
 
     /**

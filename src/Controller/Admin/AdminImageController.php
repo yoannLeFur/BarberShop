@@ -9,10 +9,8 @@ use App\Entity\Product;
 use App\Form\ImageType;
 use App\Form\ProductType;
 use App\Repository\ImagesRepository;
-use App\Repository\ProductRepository;
 use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,15 +23,9 @@ class AdminImageController extends AbstractController
      */
     private $imagesRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    public function __construct(ImagesRepository $imagesRepository, ObjectManager $em)
+    public function __construct(ImagesRepository $imagesRepository)
     {
         $this->imagesRepository = $imagesRepository;
-        $this->em = $em;
     }
 
     /**
@@ -61,15 +53,16 @@ class AdminImageController extends AbstractController
         $form = $this->createForm(ImageType::class, $images);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
-//            dd($form['image']->getData());
+            $em = $this->getDoctrine()->getManager();
             $brochureFile = $form['image']->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $images->setImage($brochureFileName);
             }
-            $this->em->persist($images);
-            $this->em->flush();
+            $em->persist($images);
+            $em->flush();
             $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
             return $this->redirectToRoute('admin.image.index');
         }
@@ -94,8 +87,8 @@ class AdminImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
             $this->addFlash('success', 'Le produit a été modifié avec succès');
             return $this->redirectToRoute('admin.product.index');
         }

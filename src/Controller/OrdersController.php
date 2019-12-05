@@ -19,15 +19,9 @@ class OrdersController extends AbstractController
      */
     private $orderRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    public function __construct(OrdersRepository $orderRepository, ObjectManager $em)
+    public function __construct(OrdersRepository $orderRepository)
     {
         $this->orderRepository = $orderRepository;
-        $this->em = $em;
     }
 
 

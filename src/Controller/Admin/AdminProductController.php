@@ -22,15 +22,10 @@ class AdminProductController extends AbstractController
      */
     private $productRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
 
-    public function __construct(ProductRepository $productRepository, ObjectManager $em)
+    public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
-        $this->em = $em;
     }
 
     /**
@@ -61,13 +56,14 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $brochureFile = $form['image']->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $product->setImage($brochureFileName);
             }
-            $this->em->persist($product);
-            $this->em->flush();
+            $em->persist($product);
+            $em->flush();
             $this->addFlash('success', 'Le nouveau produit a été crée avec succès');
             return $this->redirectToRoute('admin.product.index');
         }
@@ -92,12 +88,13 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $brochureFile = $form['image']->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $product->setImage($brochureFileName);
             }
-            $this->em->flush();
+            $em->flush();
             $this->addFlash('success', 'Le produit a été modifié avec succès');
             return $this->redirectToRoute('admin.product.index');
         }

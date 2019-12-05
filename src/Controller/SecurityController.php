@@ -19,15 +19,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    public function __construct(UsersRepository $repository, ObjectManager $em)
+    public function __construct(UsersRepository $repository)
     {
         $this->repository = $repository;
-        $this->em = $em;
     }
 
     /**
@@ -59,13 +53,13 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $em = $this->getDoctrine()->getManager();
             $roles = $rolesRepository->findBy(['name' => 'ROLE_USER'])[0];
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $user->setRoles($roles);
-            $this->em->persist($user);
-            $this->em->flush();
+            $em->persist($user);
+            $em->flush();
             return $this->redirectToRoute('login');
         }
 

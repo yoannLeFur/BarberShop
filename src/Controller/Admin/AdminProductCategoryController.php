@@ -20,15 +20,10 @@ class AdminProductCategoryController extends AbstractController
      */
     private $categoryRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
 
-    public function __construct(ProductCategoryRepository $categoryRepository, ObjectManager $em)
+    public function __construct(ProductCategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->em = $em;
     }
 
 
@@ -60,8 +55,9 @@ class AdminProductCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($category);
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
             $this->addFlash('success', 'La nouvelle catégorie a été crée avec succès');
             return $this->redirectToRoute('admin.category.index');
         }
@@ -87,7 +83,8 @@ class AdminProductCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
             $this->addFlash('success', 'La catégorie a été modifiée avec succès');
             return $this->redirectToRoute('admin.category.index');
         }
@@ -110,8 +107,9 @@ class AdminProductCategoryController extends AbstractController
     public function delete(ProductCategory $category, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))) {
-            $this->em->remove($category);
-            $this->em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($category);
+            $em->flush();
             $this->addFlash('success', 'Cette catégorie a bien été supprimée');
             return $this->redirectToRoute('admin.category.index');
         }

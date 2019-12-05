@@ -30,16 +30,11 @@ class ProductController extends AbstractController
      */
     private $brandRepository;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
 
-    public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository, ObjectManager $em)
+    public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository)
     {
         $this->productRepository = $productRepository;
         $this->brandRepository = $brandRepository;
-        $this->em = $em;
     }
 
     /**

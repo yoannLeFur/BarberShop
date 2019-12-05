@@ -53,13 +53,14 @@
                 <td class="td-options align-middle">
                     <span class="col-12">{{ item.quantity }}</span>
                 </td>
-                <td class="align-middle">
+                <td class="td-options align-middle">
                     <a href="{{ path('basket.addQuantity', { 'id': item.product.id }) }}" class="btn btn-dark btn-icon">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </td>
                 <td class="align-middle">{{ item.product.price * item.quantity }} € </td>
-                <td class="align-middle"><a href="{{ path('basket.delete', { 'id': item.product.id }) }}" class="btn btn-dark btn-icon">
+                <td class="td-options align-middle">
+                    <a href="{{ path('basket.delete', { 'id': item.product.id }) }}" class="btn btn-dark btn-icon">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </td>

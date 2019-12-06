@@ -23,7 +23,7 @@
                         <p class="card-text"><strong>Nom :</strong> {{ user.lastName }}</p>
                         <p class="card-text"><strong>Prénom :</strong> {{ user.firstName }}</p>
                         <p class="card-text"><strong>Email :</strong> {{ user.username }}</p>
-                        <p class="card-text m-0"><strong>Mot de passe :</strong> <a href="#"
+                        <p class="card-text m-0"><strong>Mot de passe :</strong> <a href="{{ path('forgot.password', {id: user.id }) }}"
                         class="btn btn-sm btn-primary pt-2">Editer le mot de passe</a></p>
                     </div>
                 </div>

@@ -19,6 +19,22 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
+    public function findOneByEmail($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.username = :username')
+            ->setParameter('username', $value)
+            ->getQuery();
+    }
+
+    public function findOneByResetToken($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.token = :token')
+            ->setParameter('token', $value)
+            ->getQuery();
+    }
+
     // /**
     //  * @return Users[] Returns an array of Users objects
     //  */

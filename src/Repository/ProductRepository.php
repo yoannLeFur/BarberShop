@@ -41,29 +41,68 @@ class ProductRepository extends ServiceEntityRepository
     public function findAllVisibleQuery(ProductSearch $search): Query
     {
         $query = $this->createQueryBuilder('p');
-        if ($search->getBrand()->count() > 0) {
+
+        // region ========== BRAND ==========
+
+        if ($search->getBrand()->count() > 1) {
+            $alias = $this->randomString(4);
+            $query = $query->innerJoin("p.brand", $alias);
+
             $k = 0;
             /** @var Brand $brand */
             foreach ($search->getBrand() as $brand) {
+
+                if ($k === 0) {
+                    $query = $query
+                        ->where("$alias.id = :brand$k")
+                        ->setParameter("brand$k", $brand);
+                } elseif ($k > 0) {
+                    $query = $query
+                        ->orWhere("$alias.id = :brand$k")
+                        ->setParameter("brand$k", $brand);
+                }
+
                 $k++;
-                $alias = $this->randomString(4);
-                $query = $query
-                    ->join("p.brand", $alias)
-                    ->orWhere("$alias.id = :brand$k")
-                    ->setParameter("brand$k", $brand);
             }
-        };
-        if ($search->getCategory()->count() > 0) {
+        } elseif ($search->getBrand()->count() === 1) {
+            $query = $query
+                ->innerJoin("p.brand", "b")
+                ->where("b.id = :brand")
+                ->setParameter("brand", $search->getBrand()->first());
+        }
+
+        //endregion
+
+        // region ========== CATEGORY ==========
+
+        if ($search->getCategory()->count() > 1) {
+
+            $alias = $this->randomString(4);
+            $query = $query->innerJoin("p.category", $alias);
+
             $k = 0;
             foreach ($search->getCategory() as $category) {
+
+                if ($search->getBrand()->count() > 0) {
+                    $query = $query
+                        ->orWhere("$alias.id = :category$k")
+                        ->setParameter("category$k", $category);
+                } else {
+                    $query = $query
+                        ->where("$alias.id = :category$k")
+                        ->setParameter("category$k", $category);
+                }
                 $k++;
-                $alias = $this->randomString(4);
-                $query = $query
-                    ->join("p.category", $alias)
-                    ->orWhere("$alias.id = :category$k")
-                    ->setParameter("category$k", $category);
             }
-        };
+        } elseif ($search->getCategory()->count() === 1) {
+            $query = $query
+                ->innerJoin("p.category", "c")
+                ->where("c.id = :cat")
+                ->setParameter("cat", $search->getCategory()->first());
+        }
+
+        // endregion
+
         if ($search->getMaxPrice()) {
             $query = $query
                 ->andWhere('p.price < :maxprice')

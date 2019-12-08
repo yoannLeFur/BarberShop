@@ -8,7 +8,6 @@ use App\Entity\Users;
 use App\Service\Basket\BasketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PaymentController extends AbstractController
@@ -36,12 +35,12 @@ class PaymentController extends AbstractController
 
         \Stripe\Customer::create([
             'description' => 'client',
-            'email' => 'yoannlefur@orange.fr'
+            'email' => $this->getUser()->getUsername()
         ]);
 
         $charge = \Stripe\Charge::create([
-            'amount' => $basketService->getTotal(),
-            'source' => $_POST['stripeToken'],
+            'amount' => $basketService->getTotal() * 100,
+            'source' => $request->request->get('stripeToken'),
             'currency' => 'eur',
             'description' => 'client de mon site BarberShop'
         ]);

@@ -7,13 +7,9 @@
 
             <form action="{{ path('payment.validate') }}" method="post" id="payment-form">
                 <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-
-                    </div>
-
+                    <label for="card-element"> Credit or debit card </label> <br/>
+                    <div id="card-element" style="height: 20px; width: 400px;"></div>
+                    <br/>
                     <div id="card-error" role="alert"></div>
                 </div>
                 <button>Submit Payment</button>
@@ -38,7 +34,7 @@
         card.mount('#card-element');
 
         card.addEventListener('change', function (event) {
-            var displayError = document.getElementById('card-errors');
+            var displayError = document.getElementById('card-error');
             if (event.error) {
                 displayError.textContent = event.error.message
             } else {
@@ -52,7 +48,7 @@
 
             stripe.createToken(card).then(function (result) {
                 if (result.error) {
-                    var errorElement = document.getElementById('card-errors');
+                    var errorElement = document.getElementById('card-error');
                     errorElement.textContent = result.error.message;
                 } else {
                     stripeTokenHandler(result.token);

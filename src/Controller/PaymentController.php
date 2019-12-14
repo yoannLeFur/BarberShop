@@ -44,7 +44,9 @@ class PaymentController extends AbstractController
             'currency' => 'eur',
             'description' => 'client de mon site BarberShop'
         ]);
-        return $this->render('basket/index.html.twig', [
+
+
+        return $this->render('basket/viewOrder.html.twig', [
             'charge' => $charge->values(),
             'items' => $basketService->getFullCart(),
             'total' => $basketService->getTotal(),

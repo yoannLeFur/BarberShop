@@ -24,6 +24,14 @@ class OrdersController extends AbstractController
         $this->orderRepository = $orderRepository;
     }
 
+    public function new()
+    {
+        $order = new Orders();
+        return $this->render('admin/product/new.html.twig', [
+            "current_menu" => 'products-admin',
+
+        ]);
+    }
 
     /**
      * @Route(name="order.show", path="/profil/commandes/{slug}-{id}", requirements={"slug": "[a-z0-9\-]*"})

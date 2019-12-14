@@ -58,6 +58,7 @@ class BasketService {
         $this->session->set('panier', $panier);
     }
 
+
     public function getFullCart() : array
     {
         $panier = $this->session->get('panier', []);

@@ -19,24 +19,26 @@ class ProductsOrder
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="productsOrder", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="productsOrder")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $orders;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="productsOrders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     public function __construct()
     {
-        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getOrders(): ?Orders
     {
@@ -50,28 +52,14 @@ class ProductsOrder
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProduct(): Collection
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function addProduct(Product $product): self
+    public function setProduct(?Product $product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->product->contains($product)) {
-            $this->product->removeElement($product);
-        }
+        $this->product = $product;
 
         return $this;
     }

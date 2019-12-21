@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,25 +29,33 @@ class Orders
      */
     private $date;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\PaymentMethod", cascade={"persist", "remove"})
-     */
-    private $payment_method;
 
     /**
      * @ORM\Column(type="float")
      */
     private $total_price;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ProductsOrder", mappedBy="orders", cascade={"persist", "remove"})
-     */
-    private $productsOrder;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="orders")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductsOrder", mappedBy="orders", orphanRemoval=true, cascade={"persist"})
+     */
+    private $productsOrder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PaymentMethod")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $paymentMethod;
+
+    public function __construct()
+    {
+        $this->productsOrder = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,17 +97,6 @@ class Orders
         return date_format($this->date, 'd/m/Y H:i:s');
     }
 
-    public function getPaymentMethod(): ?PaymentMethod
-    {
-        return $this->payment_method;
-    }
-
-    public function setPaymentMethod(?PaymentMethod $payment_method): self
-    {
-        $this->payment_method = $payment_method;
-
-        return $this;
-    }
 
     public function getTotalPrice(): ?float
     {
@@ -116,24 +115,6 @@ class Orders
         return number_format($this->total_price, 2,',',' ');
     }
 
-    public function getProductsOrder(): ?ProductsOrder
-    {
-        return $this->productsOrder;
-    }
-
-    public function setProductsOrder(?ProductsOrder $productsOrder): self
-    {
-        $this->productsOrder = $productsOrder;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newOrders = $productsOrder === null ? null : $this;
-        if ($newOrders !== $productsOrder->getOrders()) {
-            $productsOrder->setOrders($newOrders);
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?Users
     {
         return $this->user;
@@ -142,6 +123,49 @@ class Orders
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductsOrder[]
+     */
+    public function getProductsOrder(): Collection
+    {
+        return $this->productsOrder;
+    }
+
+    public function addProductsOrder(ProductsOrder $productsOrder): self
+    {
+        if (!$this->productsOrder->contains($productsOrder)) {
+            $this->productsOrder[] = $productsOrder;
+            $productsOrder->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductsOrder(ProductsOrder $productsOrder): self
+    {
+        if ($this->productsOrder->contains($productsOrder)) {
+            $this->productsOrder->removeElement($productsOrder);
+            // set the owning side to null (unless already changed)
+            if ($productsOrder->getOrders() === $this) {
+                $productsOrder->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?PaymentMethod
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(?PaymentMethod $paymentMethod): self
+    {
+        $this->paymentMethod = $paymentMethod;
 
         return $this;
     }

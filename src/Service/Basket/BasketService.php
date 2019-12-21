@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Service\Basket;
 
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class BasketService {
+class BasketService
+{
 
     /**
      * @var SessionInterface
@@ -38,9 +40,9 @@ class BasketService {
     {
         $panier = $this->session->get('panier', []);
 
-        if(!empty($panier[$id] > 1)) {
+        if (!empty($panier[$id] > 1)) {
             $panier[$id]--;
-        } else if(!empty($panier[$id] = 1)) {
+        } else if (!empty($panier[$id] = 1)) {
             unset($panier[$id]);
         }
 
@@ -51,14 +53,20 @@ class BasketService {
     {
         $panier = $this->session->get('panier', []);
 
-        if(!empty($panier[$id])) {
+        if (!empty($panier[$id])) {
             unset($panier[$id]);
         }
 
         $this->session->set('panier', $panier);
     }
 
-    public function getFullCart() : array
+    public function clear()
+    {
+        return $this->session->clear();
+    }
+
+
+    public function getFullCart(): array
     {
         $panier = $this->session->get('panier', []);
         $panierData = [];
@@ -72,10 +80,10 @@ class BasketService {
         return $panierData;
     }
 
-    public function getTotal() :float
+    public function getTotal(): float
     {
         $total = 0;
-        foreach ( $this->getFullCart() as $item) {
+        foreach ($this->getFullCart() as $item) {
             $total += $item['product']->getPrice() * $item['quantity'];
         }
 

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Orders;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,9 +20,6 @@ class OrdersRepository extends ServiceEntityRepository
         parent::__construct($registry, Orders::class);
     }
 
-    public function findAllById() {
-
-    }
 
     // /**
     //  * @return Orders[] Returns an array of Orders objects

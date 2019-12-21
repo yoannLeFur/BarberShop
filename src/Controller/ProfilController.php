@@ -9,7 +9,6 @@ use App\Form\UserInfosType;
 use App\Repository\OrdersRepository;
 use App\Repository\UsersRepository;
 use App\Service\Basket\BasketService;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,7 +40,7 @@ class ProfilController extends AbstractController
     public function index(BasketService $basketService): Response
     {
         $this->getUser()->getId();
-        $orders = $this->orderRepository->findAll();
+        $orders = $this->orderRepository->findBy(['user' => $this->getUser()->getId()]);
         return $this->render('profil/index.html.twig', [
             "current_menu" => 'user',
             'user' => $this->getUser(),

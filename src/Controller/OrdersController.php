@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Orders;
 use App\Repository\OrdersRepository;
 use App\Service\Basket\BasketService;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,14 +23,6 @@ class OrdersController extends AbstractController
         $this->orderRepository = $orderRepository;
     }
 
-    public function new()
-    {
-        $order = new Orders();
-        return $this->render('admin/product/new.html.twig', [
-            "current_menu" => 'products-admin',
-
-        ]);
-    }
 
     /**
      * @Route(name="order.show", path="/profil/commandes/{slug}-{id}", requirements={"slug": "[a-z0-9\-]*"})
@@ -40,10 +31,9 @@ class OrdersController extends AbstractController
      */
     public function show(Orders $order, string $slug, BasketService $basketService): Response
     {
-
-        if($order->getSlug() !== $slug) {
+        if ($order->getSlug() !== $slug) {
             return $this->redirectToRoute('order.show', [
-                'id' => $order->getId(),
+                'id' => $order->getUser(),
                 'slug' => $order->getSlug(),
             ], 301);
         }

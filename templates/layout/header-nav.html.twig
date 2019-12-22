@@ -117,7 +117,6 @@
                         <div class="dropdown-menu col-lg-12 col-md-12" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item size {% if current_menu is defined and current_menu == 'home' %}active{% endif %}" href="{{ path('admin.home')}}">Accueil</a>
                             <a class="dropdown-item size {% if current_menu is defined and current_menu == 'products-admin' %}active{% endif %}" href="{{ path('admin.product.index')}}">Les produits</a>
-                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'images-admin' %}active{% endif %}" href="{{ path('admin.image.index')}}">Les Images</a>
                             <a class="dropdown-item size {% if current_menu is defined and current_menu == 'orders' %}active{% endif %}" href="{{ path('admin.order.index')}}">Les commandes</a>
                             <a class="dropdown-item size {% if current_menu is defined and current_menu == 'users' %}active{% endif %}" href="{{ path('admin.user.index')}}">Les utilisateurs</a>
                             <a class="dropdown-item size {% if current_menu is defined and current_menu == 'categories' %}active{% endif %}" href="{{ path('admin.category.index')}}">Les catégories</a>

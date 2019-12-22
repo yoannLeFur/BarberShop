@@ -53,6 +53,10 @@ a {
     text-decoration: none;
 }
 
+.container {
+    min-height: 72.6vh;
+}
+
 .btn-sm {
     min-width: 40px;
     height: 40px;
@@ -113,6 +117,7 @@ a:hover {
     background-color: #ffffff;
     color: #222222;
 }
+
 /* products */
 .color-card {
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(105, 105, 105, 1) 100%);
@@ -128,7 +133,7 @@ a:hover {
     margin: 0;
 }
 
-.title-product-link{
+.title-product-link {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -141,7 +146,7 @@ a:hover {
     color: #000000;
 }
 
-.title-product-link:hover a{
+.title-product-link:hover a {
     color: #c45c45;
 }
 
@@ -170,14 +175,14 @@ admin
 
 .nav-link.active,
 .show > .nav-link {
-    background: #222222!important;
+    background: #222222 !important;
     color: #ffffff !important;
 }
 
 /* form */
 
 .form-control {
-    padding : 0.5rem;
+    padding: 0.5rem;
     font-size: 2rem;
     border-radius: 5px;
 }
@@ -196,11 +201,17 @@ table td {
 .td-image {
     width: 10%;
 }
+
 .td-options {
     width: 5%;
 }
+
 .td-name {
-    width: 70%;
+    width: 60%;
+}
+
+.td-category {
+    width: 25%;
 }
 
 /* valide */
@@ -226,29 +237,28 @@ table td {
 }
 
 form {
-   width: 100%;
+    width: 100%;
 }
 
 .select2 {
-    width:100%!important;
+    width: 100% !important;
 }
 
 .select2-container--default .select2-selection--single {
     padding: 18.75px 0;
 }
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     position: relative;
     top: -12px;
 }
 
 .select2-selection__arrow {
-    top: 8px!important;
+    top: 8px !important;
 }
 
-/*.container {*/
-/*    overflow: hidden;*/
-/*    z-index:1;*/
-/*}*/
+
+/* Carousel */
 
 .item {
     margin: 40px 10px;
@@ -274,13 +284,13 @@ form {
 
 .carousel__container {
     transition: transform 0.3s;
-    transform: translate3d(0,0,0)
+    transform: translate3d(0, 0, 0)
 }
 
 .carousel__container::after {
     content: '';
     clear: both;
-    display:  table;
+    display: table;
 }
 
 .carousel__item {

@@ -177,6 +177,9 @@
     "setasign/fpdi": {
         "version": "v2.2.0"
     },
+    "stripe/stripe-php": {
+        "version": "v7.14.2"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },

@@ -25,27 +25,19 @@
                     </div>
                 {% endfor %}
 
-                <table class="table table-bordered table-hover table-striped">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Image</th>
+                        <th>Categorie</th>
                         <th>Produit</th>
-                        <th colspan="2">Actions</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for product in products %}
                     <tr>
-                        <td class="td-image">
-                            {% if product.image %}
-                                <img src="{{ '/images/products/' ~ product.image }}"
-                                     alt="card-img-top"
-                                     style="width: 100px; height: auto;">
-                            {% else %}
-                                <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
-                                     style="width: 100px; height: auto;">
-                            {% endif %}
-                        </td>
+                        <td class="td-category align-middle">{{ product.category.name }}</td>
                         <td class="td-name align-middle">{{ product.name }}</td>
                         <td class="td-options align-middle">
                             <a href="{{ path('admin.product.edit',  {id: product.id }) }}"
@@ -59,13 +51,13 @@
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="">
                                 <button class="btn btn-dark btn-icon" title="Supprimer"><i class="fa fa-trash"
-                                                                                         aria-hidden="true"></i>
+                                                                                           aria-hidden="true"></i>
                                 </button>
                             </form>
                         </td>
                     </tr>
-                    </tbody>
                     {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>

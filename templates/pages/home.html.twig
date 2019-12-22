@@ -25,40 +25,40 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div id="carousel1">
             {% for product in products %}
-                <div class="offset-xl-0 col-xl-3 offset-lg-0 col-lg-3 offset-md-0 col-md-4 offset-sm-0 col-sm-6 offset-2 col-8">
-                    <div class="card my-3">
-                        <div class="card-body card-body-product p-0">
-                            <a class="product-link"
-                               href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
-                                <div>
-                                    {% if product.image %}
-                                        <img src="{{ 'images/products/' ~ product.image }}"
-                                             alt="card-img-top"
-                                             style="width: 100%; height: auto;">
-                                    {% else %}
-                                        <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
-                                             style="width: 100%; height: auto;">
+                    <div class="item mx-2">
+                        <div class="card my-3">
+                            <div class="card-body p-0">
+                                <a class="product-link"
+                                   href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">
+                                    <div>
+                                        {% if product.image %}
+                                            <img src="{{ 'images/products/' ~ product.image }}"
+                                                 alt="card-img-top"
+                                                 style="width: 100%; height: auto;">
+                                        {% else %}
+                                            <img src="{{ 'images/empty.jpg' }}" alt="card-img-top"
+                                                 style="width: 100%; height: auto;">
+                                        {% endif %}
+                                    </div>
+                                    {% if app.user %}
+                                        <div class="button-basket">
+                                            <a href="{{ path('basket.add', {'id': product.id}) }}"
+                                               title="Ajouter au panier">Ajouter au panier</a>
+                                        </div>
                                     {% endif %}
-                                </div>
-                                {% if app.user %}
-                                <div class="button-basket">
-                                    <a href="{{ path('basket.add', {'id': product.id}) }}"
-                                       title="Ajouter au panier">Ajouter au panier</a>
-                                </div>
-                                {% endif %}
-                                <div class="color-card">
-                                    <h4 class="title-product-link p-3"
-                                        title="{{ product.name }}"><a
-                                                href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a>
-                                    </h4>
-                                    <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
-                                </div>
-                            </a>
+                                    <div class="color-card">
+                                        <h4 class="title-product-link p-3"
+                                            title="{{ product.name }}"><a
+                                                    href="{{ path('product.show', {id: product.id, slug: product.slug}) }}">{{ product.name }}</a>
+                                        </h4>
+                                        <p class="price-paragraphe text-center">{{ product.formatedPrice }} €</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
             {% endfor %}
         </div>
         <div class="row">
@@ -84,9 +84,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div id="carousel2">
             {% for brand in brands %}
-                <div style="width: 170px; margin: 5px auto">
+                <div class="item mx-2">
                     <div class="card my-3">
                         <div class="card-body card-body-product p-0">
                             <div>
@@ -105,4 +105,5 @@
             {% endfor %}
         </div>
     </div>
+    <script src="/js/Carousel.js"></script>
 {% endblock %}

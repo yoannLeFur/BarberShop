@@ -1,7 +1,6 @@
 <div class="nav flex-column nav-pills nav-height" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <a class="nav-link {% if current_menu is defined and current_menu == 'home' %}active{% endif %}" href="{{ path('admin.home')}}">Accueil</a>
     <a class="nav-link {% if current_menu is defined and current_menu == 'products-admin' %}active{% endif %}" href="{{ path('admin.product.index')}}">Les produits</a>
-    <a class="nav-link {% if current_menu is defined and current_menu == 'images-admin' %}active{% endif %}" href="{{ path('admin.image.index')}}">Les Images</a>
     <a class="nav-link {% if current_menu is defined and current_menu == 'orders' %}active{% endif %}" href="{{ path('admin.order.index')}}">Les commandes</a>
     <a class="nav-link {% if current_menu is defined and current_menu == 'users' %}active{% endif %}" href="{{ path('admin.user.index')}}">Les utilisateurs</a>
     <a class="nav-link {% if current_menu is defined and current_menu == 'categories' %}active{% endif %}" href="{{ path('admin.category.index')}}">Les catégories</a>

@@ -8,12 +8,6 @@
                 <div class="offset-lg-3 col-lg-6 offset-0 col-6">
                     <h3>Mon Panier</h3>
                 </div>
-                {% if items | length > 0 %}
-                    <div class="col-lg-3 col-6 text-right">
-                        <a href="{{ path('basket.livraison') }}" class="btn btn-success btn-lg"
-                           title="Valider le panier">Valider le panier</a>
-                    </div>
-                {% endif %}
             </div>
         </div>
 
@@ -76,8 +70,8 @@
             </tfoot>
         </table>
         <div class="row py-3">
-            <div class="col-12 text-right">
-                <a href="{{ path('basket.livraison') }}" class="btn btn-success btn-lg" title="Valider le panier">Valider le panier</a>
+            <div class="col-12 text-center">
+                <a href="{{ path('basket.payment') }}" class="btn btn-success btn-lg" title="Valider le panier">Valider le panier</a>
             </div>
         </div>
         {% else %}

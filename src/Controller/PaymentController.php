@@ -19,20 +19,9 @@ class PaymentController extends AbstractController
 {
 
     /**
-     * @Route("/payment", name="payment.index")
-     */
-    public function index(BasketService $basketService)
-    {
-        return $this->render('payment/payment.html.twig', [
-            'user' => $this->getUser(),
-            'items' => $basketService->getFullCart(),
-            'total' => $basketService->getTotal()
-        ]);
-    }
-
-    /**
      * @Route(path="/payment/validate", name="payment.validate")
      * @throws \Stripe\Exception\ApiErrorException
+     * @throws \Exception
      */
     public function paymentAction(BasketService $basketService, Request $request, OrdersRepository $ordersRepository, PaymentMethodRepository $paymentMethodRepository)
     {
@@ -75,7 +64,7 @@ class PaymentController extends AbstractController
         $em->flush();
 
 
-        return $this->render('payment/viewOrder.html.twig', [
+        return $this->render('basket/viewOrder.html.twig', [
             'charge' => $charge->values(),
             'items' => $basketService->clear(),
             'user' => $this->getUser(),

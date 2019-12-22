@@ -73,11 +73,11 @@ class BasketController extends AbstractController
 
 
     /**
-     * @Route("/panier/livraison", name="basket.livraison")
+     * @Route("/panier/payment", name="basket.payment")
      */
     public function livraison(BasketService $basketService)
     {
-        return $this->render('basket/livraison.html.twig', [
+        return $this->render('basket/payment.html.twig', [
             'user' => $this->getUser(),
             'items' => $basketService->getFullCart(),
             'total' => $basketService->getTotal()

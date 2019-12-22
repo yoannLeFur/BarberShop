@@ -9,6 +9,9 @@ use App\Form\UserInfosType;
 use App\Repository\OrdersRepository;
 use App\Repository\UsersRepository;
 use App\Service\Basket\BasketService;
+use Dompdf\Dompdf;
+use Knp\Snappy\Pdf;
+use Mpdf\Mpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,5 +77,56 @@ class ProfilController extends AbstractController
             'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/profil/visualisation-de-la-commande/{reference}", name="profil.show.order", methods="GET")
+     * @throws \Mpdf\MpdfException
+     */
+    public function showOrder(string $reference, OrdersRepository $ordersRepository, Request $request, BasketService $basketService)
+    {
+        $order = $ordersRepository->findOneBy(['reference' => $reference]);
+        if($order) {
+            $response = $this->render('order/showOrder.html.twig', [
+                'host' => $request->getHost(),
+                'order' => $order,
+                'productsOrders' => $order->getProductsOrder(),
+                'items' => $basketService->getFullCart(),
+                'user' => $this->getUser()
+            ]);
+        return new Response($response->getContent());
+        }
+    }
+
+    /**
+     * @Route("/profil/facture/{reference}", name="profil.facture", methods="GET")
+     * @throws \Mpdf\MpdfException
+     */
+    public function displayFacture(string $reference, OrdersRepository $ordersRepository, Request $request)
+    {
+        $order = $ordersRepository->findOneBy(['reference' => $reference]);
+        if($order) {
+            $response = $this->render('facture/facture.html.twig', [
+                'host' => $request->getHost(),
+                'order' => $order,
+                'productsOrders' => $order->getProductsOrder(),
+                'user' => $this->getUser()
+            ]);
+
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($response->getContent());
+
+            // (Optional) Setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Output the generated PDF to Browser
+            $dompdf->stream();
+
+            return new Response($dompdf->outputHtml());
+        }
     }
 }

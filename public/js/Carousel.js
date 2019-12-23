@@ -78,8 +78,7 @@ class Carousel {
     }
 
     autoPlay() {
-        window.clearInterval(this.timer);
-        this.timer = setInterval(this.next.bind(this), this.options.timeout);
+        setInterval(this.next.bind(this), this.options.timeout);
     }
 
     next() {
@@ -145,7 +144,7 @@ class Carousel {
 document.addEventListener('DOMContentLoaded', function() {
     
     new Carousel(document.querySelector('#carousel1'), {
-        slidesVisible: 4,
+        slidesVisible: 5,
         slidesToScroll: 2,
         timeout: 3000,
         loop: true

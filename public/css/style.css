@@ -227,8 +227,9 @@ table td {
     padding: 5px 0;
 }
 
+.button-modal-basket,
 .button-basket a {
-    font-size: 20px;
+    font-size: 2rem;
     color: #ffffff;
 }
 
@@ -259,6 +260,10 @@ form {
 
 
 /* Carousel */
+
+.container-home {
+    padding: 0 30px;
+}
 
 .item {
     margin: 40px 10px;

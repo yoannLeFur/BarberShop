@@ -28,7 +28,7 @@ class ProductRepository extends ServiceEntityRepository
     public function findLatest(): array
     {
         return $this->createQueryBuilder('p')
-            ->setMaxResults(10)
+            ->setMaxResults(20)
             ->orderBy("p.creation_date", 'DESC')
             ->getQuery()
             ->getResult();
@@ -45,6 +45,7 @@ class ProductRepository extends ServiceEntityRepository
         // region ========== BRAND ==========
 
         if ($search->getBrand()->count() > 1) {
+
             $alias = $this->randomString(4);
             $query = $query->innerJoin("p.brand", $alias);
 

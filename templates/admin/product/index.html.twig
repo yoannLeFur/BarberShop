@@ -32,6 +32,7 @@
                         <th>Produit</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,6 +40,11 @@
                     <tr>
                         <td class="td-category align-middle">{{ product.category.name }}</td>
                         <td class="td-name align-middle">{{ product.name }}</td>
+                        <td class="td-options align-middle">
+                            <button class="btn btn-icon btn-dark" data-toggle="modal" data-target="#exampleModal"
+                               title="Editer"><i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </td>
                         <td class="td-options align-middle">
                             <a href="{{ path('admin.product.edit',  {id: product.id }) }}"
                                class="btn btn-icon btn-dark"
@@ -62,4 +68,34 @@
             </div>
         </div>
     </div>
+
+{#    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">#}
+{#        <div class="modal-dialog" role="document">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h5 class="modal-title" id="exampleModalTitle">Modal title</h5>#}
+{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <div class="offset-md-0 col-md-5 offset-2 col-8 pt-5">#}
+{#                        {% if products.image %}#}
+{#                            <img src="{{ '/images/products/' ~ products.image }}"#}
+{#                                 alt="card-img-top"#}
+{#                                 style="width: 100%; height: auto;">#}
+{#                        {% else %}#}
+{#                            <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"#}
+{#                                 style="width: 100%; height: auto;">#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+
+{#                <div class="modal-footer">#}
+{#                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermé</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
 {% endblock %}

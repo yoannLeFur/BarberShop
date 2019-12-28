@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     $('#example').DataTable({
+        "order": [[ 0, "desc" ]],
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
             "sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",

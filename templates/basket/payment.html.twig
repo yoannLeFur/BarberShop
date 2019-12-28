@@ -14,34 +14,34 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                         <h4 class="text-center font-weight-bold">Adresse de livraison</h4>
-                        <p class="card-text">Nom : {{ user.firstName }} {{ user.lastName }}</p>
-                        <p class="card-text">Email : {{ user.username }}</p>
-                        <p class="card-text">Mobile : {{ user.mobile }}</p>
-                        <p class="card-text">Adresse : {{ user.address }}</p>
-                        <p class="card-text">Ville : {{ user.city }} , ({{ user.postalCode }})</p>
-                        <p class="card-text">Pays : {{ user.country }}</p>
+                        <p class="card-text"><strong>Nom : </strong>{{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Email : </strong>{{ user.username }}</p>
+                        <p class="card-text"><strong>Mobile : </strong>{{ user.mobile }}</p>
+                        <p class="card-text"><strong>Adresse : </strong>{{ user.address }}</p>
+                        <p class="card-text"><strong>Ville : </strong>{{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text"><strong>Pays : </strong>{{ user.country }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                         <h4 class="text-center font-weight-bold">Adresse de facturation</h4>
-                        <p class="card-text">Nom : {{ user.firstName }} {{ user.lastName }}</p>
-                        <p class="card-text">Email : {{ user.username }}</p>
-                        <p class="card-text">Mobile : {{ user.mobile }}</p>
-                        <p class="card-text">Adresse : {{ user.address }}</p>
-                        <p class="card-text">Ville : {{ user.city }} , ({{ user.postalCode }})</p>
-                        <p class="card-text">Pays : {{ user.country }}</p>
+                        <p class="card-text"><strong>Nom : </strong>{{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Email : </strong>{{ user.username }}</p>
+                        <p class="card-text"><strong>Mobile : </strong>{{ user.mobile }}</p>
+                        <p class="card-text"><strong>Adresse : </strong>{{ user.address }}</p>
+                        <p class="card-text"><strong>Ville : </strong>{{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text"><strong>Pays : </strong>{{ user.country }}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="offset-3 col-6 mt-5 pt-5">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
                     <form action="{{ path('payment.validate') }}" method="post" id="payment-form">
                         <div class="form-row m-auto">

@@ -24,7 +24,9 @@ class UsersRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('u')
             ->andWhere('u.username = :username')
             ->setParameter('username', $value)
-            ->getQuery();
+            ->getQuery()
+            ->getResult()
+            ->first();
     }
 
     public function findOneByResetToken($value)
@@ -32,7 +34,8 @@ class UsersRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->andWhere('t.token = :token')
             ->setParameter('token', $value)
-            ->getQuery();
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

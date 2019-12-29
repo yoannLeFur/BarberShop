@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         timeout: 3000,
         loop: true
     })
-    
+
     new Carousel(document.querySelector('#carousel2'), {
         slidesVisible: 5,
         slidesToScroll: 1,

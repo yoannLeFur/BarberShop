@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\ForgotPassword;
 use App\Entity\Users;
 use App\Form\UserType;
 use App\Repository\RolesRepository;
@@ -76,29 +77,22 @@ class SecurityController extends AbstractController
      * @param \Swift_Mailer $mailer
      * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
+     * @throws \Exception
      */
     public function forgottenPassword(Request $request, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response    {
         if ($request->isMethod('POST')) {
 
-            $email = $request->request->get('email');
+            $email = $request->request->get('_username');
 
             $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository(Users::class)->findOneByEmail($email);
+            $user = $em->getRepository(Users::class)->findOneBy(['username' => $email]);
             /* @var $user Users */
 
             if ($user === null) {
-                $this->addFlash('danger', 'Email Inconnu, recommence !');
+                $this->addFlash('danger', 'Si votre email existe, un mail vous sera envoyé !');
                 return $this->redirectToRoute('forgotten.password');
             }
             $token = $tokenGenerator->generateToken();
-
-            try{
-                $user->setResetToken($token);
-                $em->flush();
-            } catch (\Exception $e) {
-                $this->addFlash('warning', $e->getMessage());
-                return $this->redirectToRoute('login');
-            }
 
             $url = $this->generateUrl('reset.password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -115,9 +109,26 @@ class SecurityController extends AbstractController
                     ),
                     'text/html'
                 );
+
+            $date = date_create(date('Y-m-d H:i:s'));
+            date_add($date, date_interval_create_from_date_string('2 hours'));
+
+
+            $forgotPassword = new ForgotPassword();
+            $forgotPassword
+                ->setToken($token)
+                ->setUser($user)
+                ->setIsValid(true)
+                ->setExpirationDate(new \DateTime(date_format($date, 'Y-m-d H:i:s')));
+
+
+
+            $em->persist($forgotPassword);
+            $em->flush();
+
             $mailer->send($message);
 
-            $this->addFlash('notice', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
+            $this->addFlash('notice', 'Si votre email existe, un mail vous sera envoyé !');
 
             return $this->redirectToRoute('login');
         }

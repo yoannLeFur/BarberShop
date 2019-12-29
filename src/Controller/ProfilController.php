@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Users;
+use App\Form\ResetPasswordType;
 use App\Form\UserInfosType;
 use App\Repository\OrdersRepository;
 use App\Repository\UsersRepository;

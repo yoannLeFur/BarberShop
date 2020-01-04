@@ -37,7 +37,7 @@ class AdminHomeController extends AbstractController
     public function index(BasketService $basketService)
     {
         $products = $this->productRepository->findLatest();
-        $orders = $this->orderRepository->findAll();
+        $orders = $this->orderRepository->findLatest();
         return $this->render('admin/home.html.twig', [
             "current_menu" => 'home',
             'products' => $products,

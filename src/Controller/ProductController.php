@@ -10,7 +10,6 @@ use App\Form\ProductSearchType;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Service\Basket\BasketService;
-use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

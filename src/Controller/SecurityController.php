@@ -7,11 +7,14 @@ namespace App\Controller;
 use App\Entity\ForgotPassword;
 use App\Entity\Users;
 use App\Form\UserType;
+use App\Form\UserTypeResetPassword;
 use App\Repository\RolesRepository;
 use App\Repository\UsersRepository;
+use App\Service\Basket\BasketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -31,13 +34,14 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, BasketService $basketService): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', [
             "current_menu" => 'user',
+            'items' => $basketService->getFullCart(),
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -79,7 +83,8 @@ class SecurityController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function forgottenPassword(Request $request, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response    {
+    public function forgottenPassword(Request $request, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    {
         if ($request->isMethod('POST')) {
 
             $email = $request->request->get('_username');
@@ -97,14 +102,14 @@ class SecurityController extends AbstractController
             $url = $this->generateUrl('reset.password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $message = (new \Swift_Message('Oubli de mot de passe - Réinisialisation'))
-                ->setFrom(['youn-29@hotmail.com'=> 'BarberShop'])
+                ->setFrom(['youn-29@hotmail.com' => 'BarberShop'])
                 ->setTo($user->getUsername())
                 ->setBody(
                     $this->renderView(
                         'security/emails/resetPasswordMail.html.twig',
                         [
-                            'user'=>$user,
-                            'url'=>$url
+                            'user' => $user,
+                            'url' => $url
                         ]
                     ),
                     'text/html'
@@ -120,7 +125,6 @@ class SecurityController extends AbstractController
                 ->setUser($user)
                 ->setIsValid(true)
                 ->setExpirationDate(new \DateTime(date_format($date, 'Y-m-d H:i:s')));
-
 
 
             $em->persist($forgotPassword);
@@ -139,31 +143,30 @@ class SecurityController extends AbstractController
     /** Réinisialiation du mot de passe par mail
      * @Route("/reset-password/{token}", name="reset.password")
      */
-    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(ForgotPassword $forgotPassword, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder, BasketService $basketService)
     {
-        //Reset avec le mail envoyé
-        if ($request->isMethod('POST')) {
-            $em = $this->getDoctrine()->getManager();
-
-            $user = $em->getRepository(Users::class)->findOneByResetToken($token);
-            /* @var $user Users */
-
-            if ($user === null) {
-                $this->addFlash('danger', 'Mot de passe non reconnu');
-                return $this->redirectToRoute('home');
-            }
-
-            $user->setResetToken(null);
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-            $em->flush();
-
-            $this->addFlash('notice', 'Mot de passe mis à jour !');
-
-            return $this->redirectToRoute('login');
-        }else {
-
-            return $this->render('security/resetPassword.html.twig', ['token' => $token]);
+        if ($forgotPassword->getToken() === null || $token !== $forgotPassword->getToken())
+        {
+            throw new AccessDeniedHttpException();
         }
+        $form = $this->createForm(UserTypeResetPassword::class, $forgotPassword->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $password = $passwordEncoder->encodePassword($forgotPassword->getUser(), $forgotPassword->getUser()->getPassword());
+            $forgotPassword->getUser()->setPassword($password);
+            $em->persist($forgotPassword->getUser());
+            $em->flush();
+            $this->addFlash('Success', 'Votre mot de passe a été mis à jour');
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('security/resetPassword.html.twig', [
+            'token' => $token,
+            'form' => $form->createView(),
+            'items' => $basketService->getFullCart(),
+        ]);
 
     }
 

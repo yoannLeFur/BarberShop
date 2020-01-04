@@ -20,6 +20,19 @@ class OrdersRepository extends ServiceEntityRepository
         parent::__construct($registry, Orders::class);
     }
 
+    /**
+     * @return Orders[]
+     */
+    public function findLatest(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->setMaxResults(10)
+            ->orderBy("o.date", 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
     // /**
     //  * @return Orders[] Returns an array of Orders objects

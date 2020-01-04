@@ -5,9 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Orders;
-use App\Entity\PaymentMethod;
 use App\Entity\ProductsOrder;
-use App\Entity\Users;
 use App\Repository\OrdersRepository;
 use App\Repository\PaymentMethodRepository;
 use App\Service\Basket\BasketService;

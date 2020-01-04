@@ -55,11 +55,6 @@ class Product
     private $productsOrders;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="product")
-     */
-    private $images;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
@@ -186,37 +181,6 @@ class Product
         if ($this->productsOrders->contains($productsOrder)) {
             $this->productsOrders->removeElement($productsOrder);
             $productsOrder->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Images[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Images $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Images $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getProduct() === $this) {
-                $image->setProduct(null);
-            }
         }
 
         return $this;

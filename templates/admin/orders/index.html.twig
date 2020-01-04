@@ -36,12 +36,10 @@
                             <td class="align-middle">{{ order.paymentMethod.name }}</td>
                             <td class="align-middle">{{ order.formattefTotalPrice }} €</td>
                             <td class="td-options align-middle">
-                                <a href="" class="btn btn-dark btn-icon" title="détail de la commande"><i
-                                            class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="{{ path('profil.show.order', {reference: order.reference}) }}" class="btn btn-dark btn-icon" title="détail de la commande"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             </td>
                             <td class="td-options align-middle">
-                                <a href="" class="btn btn-dark btn-icon" title="facture de la commande"><i
-                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                <a href="{{ path('profil.facture', {reference: order.reference}) }}" class="btn btn-dark btn-icon" title="facture de la commande"><i class="fa fa-download" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -77,6 +77,10 @@ class BasketController extends AbstractController
      */
     public function livraison(BasketService $basketService)
     {
+        if (empty($basketService->getFullCart()) || $basketService->getFullCart() === null) {
+            return $this->redirectToRoute("home.index");
+        }
+
         return $this->render('basket/payment.html.twig', [
             'user' => $this->getUser(),
             'items' => $basketService->getFullCart(),

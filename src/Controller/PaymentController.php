@@ -39,8 +39,8 @@ class PaymentController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $paymenntMethod = $paymentMethodRepository->findOneBy(['name' => 'CB']);
-        $order = new Orders();
 
+        $order = new Orders();
         $order
             ->setUser($this->getUser())
             ->setReference('REF_' . uniqid())

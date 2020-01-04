@@ -67,36 +67,42 @@
         <h5 class="size text-center">Liste de vos produits commandés</h5>
     </div>
 
+    {% for productOrder in productsOrders %}
+        <div class="row m-0 ">
+            <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="width: 150px" class="p-0 align-middle text-center">
+                                <img src="../public/images/products/{{ productOrder.product.image }}"
+                                     alt="card-img-top"
+                                     style="width: 80px; height: auto;">
+                            </td>
+                            <td style="background-color: #F2F2F2" colspan="2">
+                                <h5 class="size text-center">{{ productOrder.product.name }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="size text-right font-weight-bold  p-2" style="background-color: #F2F2F2">Prix
+                            </td>
+                            <td class="size text-center font-weight-bold  p-2"
+                                style="color: #c45c45 ">{{ productOrder.product.formatedPrice }} €
+                            </td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    {% endfor %}
     <div class="row m-0 ">
-        <table class="table table-bordered ">
+        <table class="table table-bordered">
             <tbody>
-            {% for productOrder in productsOrders %}
                 <tr>
-                    <td rowspan="2" style="width: 150px" class="p-0 align-middle text-center">
-                        <img src="../public/images/products/{{ productOrder.product.image }}"
-                             alt="card-img-top"
-                             style="width: 80px; height: auto;">
-                    </td>
-                    <td style="background-color: #F2F2F2" colspan="2">
-                        <h5 class="size text-center">{{ productOrder.product.name }}</h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="size text-right font-weight-bold  p-2" style="background-color: #F2F2F2">Prix
+                    <td colspan="2" class="size text-right font-weight-bold bg-primary text-white p-2">Prix
+                        total
                     </td>
                     <td class="size text-center font-weight-bold  p-2"
-                        style="color: #c45c45 ">{{ productOrder.product.formatedPrice }} €
+                        style="color: #c45c45 "> {{ order.formattefTotalPrice }} €
                     </td>
                 </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="2" class="size text-right font-weight-bold bg-primary text-white p-2">Prix
-                    total
-                </td>
-                <td class="size text-center font-weight-bold  p-2"
-                    style="color: #c45c45 "> {{ order.formattefTotalPrice }} €
-                </td>
-            </tr>
             </tbody>
         </table>
     </div>

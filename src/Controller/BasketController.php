@@ -75,7 +75,7 @@ class BasketController extends AbstractController
     /**
      * @Route("/panier/payment", name="basket.payment")
      */
-    public function livraison(BasketService $basketService)
+    public function payement(BasketService $basketService)
     {
         if (empty($basketService->getFullCart()) || $basketService->getFullCart() === null) {
             return $this->redirectToRoute("home.index");

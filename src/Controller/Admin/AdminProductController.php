@@ -9,9 +9,9 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\Basket\BasketService;
 use App\Service\FileUploader;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminProductController extends AbstractController
@@ -106,6 +106,24 @@ class AdminProductController extends AbstractController
             'total' => $basketService->getTotal(),
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/product/{id}", name="admin.product.delete", methods="DELETE")
+     * @param Product $product
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function delete(Product $product, Request $request)
+    {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($product);
+            $em->flush();
+            $this->addFlash('success', 'Ce produit a bien été supprimer');
+            return $this->redirectToRoute('admin.product.index');
+        }
+        return $this->redirectToRoute('admin.product.index');
     }
 
 }

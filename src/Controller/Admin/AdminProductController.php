@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Product;
+use App\Entity\ProductsOrder;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\Basket\BasketService;
@@ -114,14 +115,21 @@ class AdminProductController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function delete(Product $product, Request $request)
+    public function delete(ProductsOrder $productsOrder, Product $product, Request $request)
     {
-        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($product);
-            $em->flush();
-            $this->addFlash('success', 'Ce produit a bien été supprimer');
+//            dump($productsOrder->getProduct()->getId());
+//            dd($product->getId());
+        if ($productsOrder->getProduct()->getId() === $product->getId()) {
+            $this->addFlash('danger', 'Ce produit ne peut pas être supprimer');
             return $this->redirectToRoute('admin.product.index');
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($product);
+                $em->flush();
+                $this->addFlash('success', 'Ce produit a bien été supprimer');
+                return $this->redirectToRoute('admin.product.index');
+            }
         }
         return $this->redirectToRoute('admin.product.index');
     }

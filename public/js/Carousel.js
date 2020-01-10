@@ -144,14 +144,14 @@ class Carousel {
 document.addEventListener('DOMContentLoaded', function() {
     
     new Carousel(document.querySelector('#carousel1'), {
-        slidesVisible: 5,
+        slidesVisible: 6,
         slidesToScroll: 2,
         timeout: 3000,
         loop: true
     })
 
     new Carousel(document.querySelector('#carousel2'), {
-        slidesVisible: 5,
+        slidesVisible: 8,
         slidesToScroll: 1,
         timeout: 1000,
         loop: true

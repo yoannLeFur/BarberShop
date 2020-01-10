@@ -25,6 +25,12 @@
                     </div>
                 {% endfor %}
 
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
                 <table id="example" class="table table-bordered shadow" style="width:100%">
                     <thead>
                     <tr>

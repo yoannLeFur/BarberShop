@@ -1,6 +1,7 @@
 'use strict'
 
 $(document).ready(function() {
+    if(!document.getElementById('example')) return;
     $('#example').DataTable({
         "order": [[ 0, "desc" ]],
         "language": {

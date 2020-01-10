@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191215112649 extends AbstractMigration
+final class Version20200105111639 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20191215112649 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE orders DROP INDEX UNIQ_E52FFDEE5AA1164F, ADD INDEX IDX_E52FFDEE5AA1164F (payment_method_id)');
+        $this->addSql('DROP TABLE images');
         $this->addSql('ALTER TABLE orders CHANGE payment_method_id payment_method_id INT NOT NULL');
         $this->addSql('ALTER TABLE products_order CHANGE orders_id orders_id INT NOT NULL, CHANGE product_id product_id INT NOT NULL');
     }
@@ -32,7 +32,8 @@ final class Version20191215112649 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE orders DROP INDEX IDX_E52FFDEE5AA1164F, ADD UNIQUE INDEX UNIQ_E52FFDEE5AA1164F (payment_method_id)');
+        $this->addSql('CREATE TABLE images (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, image VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, INDEX IDX_E01FBE6A4584665A (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
+        $this->addSql('ALTER TABLE images ADD CONSTRAINT FK_E01FBE6A4584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE orders CHANGE payment_method_id payment_method_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE products_order CHANGE orders_id orders_id INT DEFAULT NULL, CHANGE product_id product_id INT DEFAULT NULL');
     }

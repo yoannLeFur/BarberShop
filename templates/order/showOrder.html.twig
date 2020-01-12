@@ -21,12 +21,12 @@
         <h2>Récapitulatif de votre commande n° <strong>{{ order.reference }}</strong></h2>
 
         <div class="row">
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12 pt-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row my-3">
-                            <div class="col-12">
-                                <p class="card-text"><strong>Reference :</strong> {{ order.reference }}</p>
+                            <div class="col-12 pt-3">
+                                <p class="card-text text-truncate"><strong>Reference :</strong> {{ order.reference }}</p>
                                 <p class="card-text"><strong>Date :</strong> {{ order.formattedDate }}</p>
                                 <p class="card-text"><strong>Prix Total :</strong> {{ order.formattefTotalPrice }} €</p>
                             </div>
@@ -34,16 +34,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-8 col-md-12 pt-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row my-3">
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-6 col-md-12 pt-3">
                                 <p class="card-text"><strong>Nom :</strong> {{ user.firstName }} {{ user.lastName }}</p>
                                 <p class="card-text"><strong>Email :</strong> {{ user.username }}</p>
                                 <p class="card-text"><strong>Mobile :</strong> {{ user.mobile }}</p>
                             </div>
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-6 col-md-12 pt-3">
                                 <p class="card-text"><strong>Adresse :</strong> {{ user.address }}</p>
                                 <p class="card-text"><strong>Ville :</strong> {{ user.city }} , ({{ user.postalCode }})
                                 </p>

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 
 class ProductSearch {
@@ -14,7 +13,7 @@ class ProductSearch {
     private $maxPrice;
 
     /**
-     * @var ArrayCollection
+     * @var
      */
     private $category;
 
@@ -26,7 +25,6 @@ class ProductSearch {
     public function __construct()
     {
         $this->brand = new ArrayCollection();
-        $this->category = new ArrayCollection();
     }
 
     /**
@@ -62,20 +60,20 @@ class ProductSearch {
     }
 
     /**
-     * @return ArrayCollection
+     * @return ProductCategory
      */
-    public function getCategory(): ArrayCollection
+    public function getCategory():?ProductCategory
     {
         return $this->category;
     }
 
     /**
-     * @param ArrayCollection $category
+     * @param $category
      * @return ProductSearch
      */
-    public function setCategory(ArrayCollection $category): ProductSearch
+    public function setCategory(ProductCategory $productCategory): ProductSearch
     {
-        $this->category = $category;
+        $this->category = $productCategory;
         return $this;
     }
 

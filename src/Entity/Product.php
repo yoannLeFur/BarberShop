@@ -50,7 +50,7 @@ class Product
     private $brand;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProductsOrder", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductsOrder", mappedBy="product")
      */
     private $productsOrders;
 

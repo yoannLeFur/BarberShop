@@ -117,12 +117,16 @@ class AdminProductController extends AbstractController
      */
     public function delete(ProductsOrder $productsOrder, Product $product, Request $request)
     {
+
+
+
 //            dump($productsOrder->getProduct()->getId());
 //            dd($product->getId());
         if ($productsOrder->getProduct()->getId() === $product->getId()) {
             $this->addFlash('danger', 'Ce produit ne peut pas être supprimer');
             return $this->redirectToRoute('admin.product.index');
         } else {
+
             if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($product);

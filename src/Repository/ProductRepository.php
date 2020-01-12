@@ -42,7 +42,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('p');
 
-        // region ========== BRAND ==========
+        // ========== BRAND ==========
 
         if ($search->getBrand()->count() > 1) {
 
@@ -62,7 +62,6 @@ class ProductRepository extends ServiceEntityRepository
                         ->orWhere("$alias.id = :brand$k")
                         ->setParameter("brand$k", $brand);
                 }
-
                 $k++;
             }
         } elseif ($search->getBrand()->count() === 1) {
@@ -72,74 +71,41 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter("brand", $search->getBrand()->first());
         }
 
-        //endregion
+        // ========== END ==========
 
-        // region ========== CATEGORY ==========
+        // ========== CATEGORY ==========
 
-        if ($search->getCategory()->count() > 1) {
-
-            $alias = $this->randomString(4);
-            $query = $query->innerJoin("p.category", $alias);
-
-            $k = 0;
-            foreach ($search->getCategory() as $category) {
-
-                if ($search->getBrand()->count() > 0) {
-                    $query = $query
-                        ->orWhere("$alias.id = :category$k")
-                        ->setParameter("category$k", $category);
-                } else {
-                    $query = $query
-                        ->where("$alias.id = :category$k")
-                        ->setParameter("category$k", $category);
-                }
-                $k++;
-            }
-        } elseif ($search->getCategory()->count() === 1) {
+        if ($search->getCategory()) {
             $query = $query
-                ->innerJoin("p.category", "c")
-                ->where("c.id = :cat")
-                ->setParameter("cat", $search->getCategory()->first());
+                ->innerJoin("p.category", "c");
+            if ($search->getBrand()->count() >= 1) {
+                $query = $query
+                    ->andWhere("c.id = :cat")
+                    ->setParameter("cat", $search->getCategory());
+            } else {
+                $query = $query
+                    ->where("c.id = :cat")
+                    ->setParameter("cat", $search->getCategory());
+            }
         }
 
-        // endregion
+        // ========== END ==========
 
         if ($search->getMaxPrice()) {
-            $query = $query
-                ->andWhere('p.price < :maxprice')
-                ->setParameter('maxprice', $search->getMaxPrice());
+
+            if ($search->getCategory() || $search->getBrand()->count() > 0) {
+                $query = $query
+                    ->andWhere('p.price < :maxprice')
+                    ->setParameter('maxprice', $search->getMaxPrice());
+            } else {
+                $query = $query
+                    ->where('p.price < :maxprice')
+                    ->setParameter('maxprice', $search->getMaxPrice());
+            }
+
         }
         return $query->getQuery();
     }
-
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     /**  * Get a random string  *  * @param int $length * @return bool|string */
     function randomString(int $length)

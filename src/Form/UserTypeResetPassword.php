@@ -18,12 +18,4 @@ class UserTypeResetPassword extends AbstractType
         $builder->add('password', PasswordType::class);
     }
 
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults(array(
-//            'data_class' => Users::class,
-//            'translation_domain' => 'forms'
-//        ));
-//    }
-
 }

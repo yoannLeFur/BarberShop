@@ -23,8 +23,6 @@
                         <p class="card-text"><strong>Nom :</strong> {{ user.lastName }}</p>
                         <p class="card-text"><strong>Prénom :</strong> {{ user.firstName }}</p>
                         <p class="card-text"><strong>Email :</strong> {{ user.username }}</p>
-                        <p class="card-text m-0"><strong>Mot de passe : </strong><a href="#"
-                        class="text-primary font-weight-bold">Editer le mot de passe</a></p>
                     </div>
                 </div>
             </div>
@@ -33,8 +31,7 @@
                     <div class="card-body">
                         <p class="card-text"><strong>Mobile :</strong> {{ user.mobile }}</p>
                         <p class="card-text"><strong>Adresse :</strong> {{ user.address }}</p>
-                        <p class="card-text"><strong>Ville :</strong> {{ user.city }} , ({{ user.postalCode }})</p>
-                        <p class="card-text"><strong>Pays :</strong> {{ user.country }}</p>
+                        <p class="card-text"><strong>Ville :</strong> {{ user.city }} {{ user.postalCode }} {{ user.country }}</p>
                     </div>
                 </div>
             </div>

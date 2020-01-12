@@ -1,7 +1,6 @@
 BarberShop
 
-
-Symfony 4
+Ce projet à été crée avec Symfony 4
 
 Cliquer sur clone or download 
 

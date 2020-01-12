@@ -1,0 +1,141 @@
+<nav class="style-nav fixed-top navbar navbar-expand-lg navbar-dark py-0">
+    <a class="navbar-brand home-link px-3" href="{{ path('home.index') }}">BarberShop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav col-12 p-0">
+            <li class="nav-item col-lg-3 col-md-12 p-0">
+                <a class="nav-link button-link {% if current_menu is defined and current_menu == 'products' %}active{% endif %}"
+                   href="{{ path('product.index') }}">Boutique</a>
+            </li>
+            {% if not app.user %}
+                <li class="nav-item dropdown offset-lg-6 col-lg-3 offset-md-2 col-md-8 p-0">
+                    <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
+                       href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu col-12" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="{{ path('register') }}"
+                           class="dropdown-item size">Inscription</a>
+                        <a href="{{ path('login') }}"
+                           class="dropdown-item size">Connexion</a>
+                    </div>
+                </li>
+            {% endif %}
+            {% if app.user %}
+                <li class="nav-item dropdown col-lg-4 col-md-12 p-0">
+                    <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'basket' %}active{% endif %}"
+                       href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Panier
+                        {% if items | length > 0 %}
+                            <span class="badge badge-light">{{ items | length }}</span>
+                        {% endif %}
+                    </a>
+                    <div class="dropdown-menu col-12">
+                        {% if items | length > 0 %}
+                            <div class="dropdown-item p-0">
+                                {% for item in items %}
+                                    <div class="card p-0 offset-lg-0 col-lg-12 offset-md-2 col-md-8">
+                                        <div class="card-body p-0">
+                                            <table class="table table-bordered ">
+                                                <tbody>
+                                                    <tr>
+                                                        <td rowspan="3" style="width: 80px" class="p-0">
+                                                            <img src="{{ '../images/products/' ~ item.product.image }}"
+                                                                 alt="card-img-top"
+                                                                 style="width: 80px; height: auto;">
+                                                        </td>
+                                                        <td style="width: 70%; background-color: #F2F2F2" colspan="3" >
+                                                            <h5 class="size text-center">{{ item.product.name }}</h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="size text-right font-weight-bold p-2" style="width: 10%; background-color: #F2F2F2">Quantité</td>
+                                                        <td class="size text-center p-2" style="width: 35%">{{ item.quantity }}</td>
+                                                        <td rowspan="2" style="width: 25%" class="align-middle">
+                                                            <a href="{{ path('basket.delete', { 'id': item.product.id }) }}" class="btn btn-dark btn-icon">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="size text-right font-weight-bold  p-2" style="width: 10%; background-color: #F2F2F2">Prix</td>
+                                                        <td class="size text-center font-weight-bold  p-2" style="width: 35%;color: #c45c45 ">{{ item.product.getformatedPrice }} €</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td class="size text-right font-weight-bold p-2" style="width: 40%; background-color: #F2F2F2">Prix total</td>
+                                            <td class="size text-center font-weight-bold  p-2" style="width: 35%;color: #c45c45 ">{{ total | number_format(2, ',', ' ') }} €</td>
+                                            <td class="size text-center font-weight-bold  p-2" style="width: 25%"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            <div class="offset-lg-0 col-lg-12 offset-md-2 col-md-8">
+                                <div class="row button-modal-basket my-2">
+                                    <a class="col-lg-12 col-6 btn-success text-center text-white mt-3 p-2 py-3"
+                                       href="{{ path('basket.index') }}">
+                                        Panier
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-lg-12 text-center">
+                                <span class="size">Votre panier est vide !</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item dropdown offset-lg-2 col-lg-3 offset-md-2 col-md-8  p-0">
+                    <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
+                       href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.fullname }}
+                    </a>
+                    <div class="dropdown-menu col-lg-12 col-md-12" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item size" href="{{ path('profil.index') }}">Mon profil</a>
+                        {% if app.user.roles == ['ROLE_ADMIN'] %}
+                            <a class="dropdown-item size" href="{{ path('admin.home') }}">Administration</a>
+                        {% endif %}
+                        <a class="dropdown-item size" href="{{ path('logout') }}">Se déconnecter</a>
+                    </div>
+                </li>
+                {% if app.user.roles == ['ROLE_ADMIN'] %}
+                    <li class="nav-item dropdown d-lg-none offset-md-2 col-md-8 d-md-block p-0">
+                        <a class="nav-link dropdown-toggle button-link {% if current_menu is defined and current_menu == 'user' %}active{% endif %}"
+                           href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administration
+                        </a>
+                        <div class="dropdown-menu col-lg-12 col-md-12" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'home' %}active{% endif %}"
+                               href="{{ path('admin.home') }}">Accueil</a>
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'products-admin' %}active{% endif %}"
+                               href="{{ path('admin.product.index') }}">Les produits</a>
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'orders' %}active{% endif %}"
+                               href="{{ path('admin.order.index') }}">Les commandes</a>
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'users' %}active{% endif %}"
+                               href="{{ path('admin.user.index') }}">Les utilisateurs</a>
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'categories' %}active{% endif %}"
+                               href="{{ path('admin.category.index') }}">Les catégories</a>
+                            <a class="dropdown-item size {% if current_menu is defined and current_menu == 'brands' %}active{% endif %}"
+                               href="{{ path('admin.brand.index') }}">Les marques</a>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>

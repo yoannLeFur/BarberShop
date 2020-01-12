@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title "Nouvelle marque" %}
+{% block body %}
+    <div class="row m-0">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
+            {{ include('layout/sidebar.html.twig') }}
+        </div>
+        <div class="container-admin offset-lg-2 col-lg-10 offset-0 col-12">
+            <div class="container mt-4">
+                <h2>Nouvelle marque</h2>
+
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="offset-lg-3 col-lg-6 offset-md-1 col-md-10">{{ form_row(form.name) }}</div>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-3 col-lg-6 offset-md-1 col-md-10">{{ form_row(form.image) }}</div>
+                </div>
+                {{ form_widget(form) }}
+                <div class="text-center">
+                    <button class="btn btn-primary btn-lg">{{ button|default('Enregistrer') }}</button>
+                </div
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

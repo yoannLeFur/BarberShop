@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block title 'Mon profil' %}
+
+{% block body %}
+    <div class="container mt-4">
+
+        <div class="title-row">
+            <div class="row">
+                <div class="offset-2 col-8">
+                    <h3>Mes informations</h3>
+                </div>
+                <div class="col-2 text-center">
+                    <a href="{{ path('profil.edit',  {id: user.id }) }}" class="btn btn-icon btn-dark button"
+                       title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 my-2">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p class="card-text"><strong>Nom :</strong> {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Prénom :</strong> {{ user.firstName }}</p>
+                        <p class="card-text"><strong>Email :</strong> {{ user.username }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 my-2">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <p class="card-text"><strong>Mobile :</strong> {{ user.mobile }}</p>
+                        <p class="card-text"><strong>Adresse :</strong> {{ user.address }}</p>
+                        <p class="card-text"><strong>Ville :</strong> {{ user.city }} {{ user.postalCode }} {{ user.country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center">Mes commandes</h2>
+
+        <table id="example" class="table table-bordered shadow" style="width:100%">
+            <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Date</th>
+                <th>Payment</th>
+                <th>Prix total</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td class="align-middle font-weight-bold">{{ order.reference }}</td>
+                    <td class="align-middle">{{ order.formattedDate }}</td>
+                    <td class="align-middle">{{ order.paymentMethod.name }}</td>
+                    <td class="align-middle">{{ order.formattefTotalPrice }} €</td>
+                    <td class="td-options align-middle">
+                        <a href="{{ path('profil.show.order', {reference: order.reference}) }}" class="btn btn-dark btn-icon" title="détail de la commande"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </td>
+                    <td class="td-options align-middle">
+                        <a href="{{ path('profil.facture', {reference: order.reference}) }}" class="btn btn-dark btn-icon" title="facture de la commande"><i class="fa fa-download" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pt-4 p-0">
+        {{ include('layout/footer.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row m-0">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
+            {{ include('layout/sidebar.html.twig') }}
+        </div>
+        <div class="container-admin offset-lg-2 col-lg-10 offset-0 col-12">
+            <div class="container mt-4">
+                <h2>Les Utilisateurs</h2>
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <table id="example" class="table table-bordered shadow" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Pseudo</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Date de création</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.roles[0] }}</td>
+                            <td>{{ user.formattedDate }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block title 'Visualisation de votre commande' %}
+
+{% block body %}
+    <div class="color-jumbotron-home jumbotron text-center text-white rounded-0 p-0">
+        <div class="row m-0">
+            <div class="col-lg-4 col-12">
+                <img class="logo-img" src="/images/logo.jpg">
+            </div>
+            <div class="col-lg-4 col-12 py-5">
+                <h1 class="title-h1">BarberShop</h1>
+                <p class="description">Lorem Ipsum color sit amet</p>
+            </div>
+            <div class="d-lg-block col-lg-4 d-none">
+                <img class="logo-img" src="/images/logo.jpg">
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+
+        <h2>Récapitulatif de votre commande n° <strong>{{ order.reference }}</strong></h2>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row my-3">
+                            <div class="col-12">
+                                <p class="card-text"><strong>Reference :</strong> {{ order.reference }}</p>
+                                <p class="card-text"><strong>Date :</strong> {{ order.formattedDate }}</p>
+                                <p class="card-text"><strong>Prix Total :</strong> {{ order.formattefTotalPrice }} €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row my-3">
+                            <div class="col-lg-6 col-md-12">
+                                <p class="card-text"><strong>Nom :</strong> {{ user.firstName }} {{ user.lastName }}</p>
+                                <p class="card-text"><strong>Email :</strong> {{ user.username }}</p>
+                                <p class="card-text"><strong>Mobile :</strong> {{ user.mobile }}</p>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <p class="card-text"><strong>Adresse :</strong> {{ user.address }}</p>
+                                <p class="card-text"><strong>Ville :</strong> {{ user.city }} , ({{ user.postalCode }})
+                                </p>
+                                <p class="card-text"><strong>Pays :</strong> {{ user.country }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5 ">
+            <div class="col-12 my-3 text-center">
+                <h2>Liste de vos produits commandés</h2>
+            </div>
+            {% for productOrder in productsOrders %}
+                <div class="offset-xl-0 col-xl-3 offset-lg-0 col-lg-3 offset-md-0 col-md-4 offset-sm-0 col-sm-6 offset-2 col-8">
+                    <div class="card my-3">
+                        <div class="card-body card-body-product p-0">
+                            <div>
+                                {% if productOrder.product.image %}
+                                    <img src="{{ '/images/products/' ~ productOrder.product.image }}"
+                                         alt="card-img-top"
+                                         style="width: 100%; height: auto;">
+                                {% else %}
+                                    <img src="{{ '/images/empty.jpg' }}" alt="card-img-top"
+                                         style="width: 100%; height: auto;">
+                                {% endif %}
+                            </div>
+                            <div class="color-card">
+                                <h4 class="title-product-link p-3">
+                                    {{ productOrder.product.name }}
+                                </h4>
+                                <p class="price-paragraphe text-center">{{ productOrder.product.formatedPrice }}
+                                    €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pt-4 p-0">
+        {{ include('layout/footer.html.twig') }}
+    </div>
+{% endblock %}

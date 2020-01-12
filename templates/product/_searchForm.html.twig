@@ -1,0 +1,18 @@
+<nav class="color-nav navbar navbar-expand-lg navbar-dark py-0 col-lg-11 col-12">
+    {{ form_start(form) }}
+        <ul class="navbar-nav p-0 my-3">
+            <li class="size nav-item col-lg-4 col-sm-12 pr-2">
+                {{ form_row(form.brand) }}
+            </li>
+            <li class="size nav-item col-lg-4 col-sm-12 pr-2">
+                {{ form_row(form.category) }}
+            </li>
+            <li class="size nav-item col-lg-4 col-sm-12 pr-2">
+                {{ form_row(form.maxPrice) }}
+            </li>
+            <li class="size nav-item col-lg-1 col-12 p-0">
+                <button class="btn btn-lg button-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </li>
+        </ul>
+    {{ form_end(form) }}
+</nav>

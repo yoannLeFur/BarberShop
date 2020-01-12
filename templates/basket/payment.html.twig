@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title 'Payment' %}
+
+{% block body %}
+    <div class="container mt-5 pt-5">
+
+        <div class="title-row">
+            <div class="row">
+                <div class="offset-3 col-6">
+                    <h3>Payment</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="text-center font-weight-bold">Adresse de livraison</h4>
+                        <p class="card-text"><strong>Nom : </strong>{{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Email : </strong>{{ user.username }}</p>
+                        <p class="card-text"><strong>Mobile : </strong>{{ user.mobile }}</p>
+                        <p class="card-text"><strong>Adresse : </strong>{{ user.address }}</p>
+                        <p class="card-text"><strong>Ville : </strong>{{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text"><strong>Pays : </strong>{{ user.country }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="text-center font-weight-bold">Adresse de facturation</h4>
+                        <p class="card-text"><strong>Nom : </strong>{{ user.firstName }} {{ user.lastName }}</p>
+                        <p class="card-text"><strong>Email : </strong>{{ user.username }}</p>
+                        <p class="card-text"><strong>Mobile : </strong>{{ user.mobile }}</p>
+                        <p class="card-text"><strong>Adresse : </strong>{{ user.address }}</p>
+                        <p class="card-text"><strong>Ville : </strong>{{ user.city }} , ({{ user.postalCode }})</p>
+                        <p class="card-text"><strong>Pays : </strong>{{ user.country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offset-3 col-6 mt-5 pt-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form action="{{ path('payment.validate') }}" method="post" id="payment-form">
+                        <div class="form-row m-auto">
+                            <label for="card-element">Saisissez votre numèro de carte de crédit</label> <br/>
+                            <div id="card-element" style="height: 20px; width: 400px;"></div>
+                            <br/>
+                            <div id="card-error" role="alert"></div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-dark btn-lg" title="Valider le payment">Valider le payement
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pt-4 p-0">
+        {{ include('layout/footer.html.twig') }}
+    </div>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/js/Stripe.js"></script>
+{% endblock %}

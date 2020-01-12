@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BarberShop!{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+<div class="color-jumbotron-home jumbotron text-center text-white rounded-0 p-0"
+     style="background-color: #000000; height: 130px;">
+    <div class="row m-0">
+        <div class="col-lg-4 col-12 text-left pt-4">
+            <img class="logo-img" src="../public/images/logo.jpg" style="width: 50px;">
+        </div>
+        <div class="col-lg-4 col-12" style="padding: 30px 0">
+            <h1 class="title-h1">BarberShop</h1>
+            <p class="description">FACTURE</p>
+        </div>
+        <div class="col-lg-4 col-12 text-right pt-4">
+            <img class="logo-img" src="../public/images/logo.jpg" style="width: 50px;">
+        </div>
+    </div>
+</div>
+<div>
+
+    <div class="row m-0 py-2">
+        <h5 class="size text-center">Récapitulatif de votre commande n° <strong
+                    class="text-primary">{{ order.reference }}</strong></h5>
+    </div>
+
+    <div class="row m-0">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td style="width: 50%"><strong>Nom :</strong> {{ user.firstName }} {{ user.lastName }}</td>
+                <td style="width: 50%"><strong>Adresse :</strong> {{ user.address }}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%"><strong>Email :</strong> {{ user.username }}</td>
+                <td style="width: 50%"><strong>Mobile :</strong> {{ user.mobile }}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%"><strong>Ville :</strong> {{ user.city }} , ({{ user.postalCode }})</td>
+                <td style="width: 50%"><strong>Pays :</strong> {{ user.country }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row m-0 py-3">
+        <table class="table table-bordered infos">
+            <tbody>
+            <tr>
+                <td style="width: 40%" class="bg-primary text-white"><strong>Référence :</strong> {{ order.reference }}
+                </td>
+                <td style="width: 40%"><strong>Date :</strong> {{ order.formattedDate }}</td>
+                <td style="width: 20%"><strong>Prix :</strong> {{ order.formattefTotalPrice }} €</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row m-0 py-2">
+        <h5 class="size text-center">Liste de vos produits commandés</h5>
+    </div>
+
+    {% for productOrder in productsOrders %}
+        <div class="row m-0 ">
+            <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="width: 150px" class="p-0 align-middle text-center">
+                                <img src="../public/images/products/{{ productOrder.product.image }}"
+                                     alt="card-img-top"
+                                     style="width: 80px; height: auto;">
+                            </td>
+                            <td style="background-color: #F2F2F2" colspan="2">
+                                <h5 class="size text-center">{{ productOrder.product.name }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="size text-right font-weight-bold  p-2" style="background-color: #F2F2F2">Prix
+                            </td>
+                            <td class="size text-center font-weight-bold  p-2"
+                                style="color: #c45c45 ">{{ productOrder.product.formatedPrice }} €
+                            </td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    {% endfor %}
+    <div class="row m-0 ">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="size text-right font-weight-bold bg-primary text-white p-2">Prix
+                        total
+                    </td>
+                    <td class="size text-center font-weight-bold  p-2"
+                        style="color: #c45c45 "> {{ order.formattefTotalPrice }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

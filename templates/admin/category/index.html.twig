@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title 'Les categories' %}
+{% block body %}
+    <div class="row m-0">
+        <div class="menu-admin d-lg-block col-lg-2 d-none">
+            {{ include('layout/sidebar.html.twig') }}
+        </div>
+        <div class="container-admin offset-lg-2 col-lg-10 offset-0 col-12">
+            <div class="container mt-4">
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col-3 text-left">
+                            <a href="{{ path('admin.category.new') }}" class="btn btn-icon btn-outline-success"
+                               title="Ajouter"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-6">
+                            <h3>Gestion des catégories</h3>
+                        </div>
+                    </div>
+                </div>
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <table id="example" class="table table-bordered shadow" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td class="td-name align-middle">{{ category.name }}</td>
+                            <td class="td-options align-middle">
+                                <a href="{{ path('admin.category.edit',  {id: category.id }) }}"
+                                   class="btn btn-dark btn-icon"
+                                   title="Editer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td class="td-options align-middle">
+                                <form method="post" action="{{ path('admin.category.delete', {id: category.id}) }}"
+                                      onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catégorie?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                    <button class="btn btn-dark btn-icon" title="Supprimer"><i class="fa fa-trash"
+                                                                                             aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
